@@ -9,13 +9,13 @@ const Header = () => {
         <Link to="/">
           <img src={logo} alt="vinted logo" />{" "}
         </Link>
-        <form action="">
+        <form>
           <div className="search-bar">
             <FaMagnifyingGlass />
             <input
               type="search"
-              name=""
-              id=""
+              name="search"
+              id="search"
               placeholder="Rechercher des articles"
             />
           </div>

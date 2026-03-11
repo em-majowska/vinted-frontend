@@ -2,13 +2,16 @@ import { Link } from "react-router-dom";
 
 const Item = ({ item }) => {
   const user = item.owner.account;
-  const details = item.product_details;
-  const brand = details[0].MARQUE || "H&M";
-  const size = details[0].TAILLE || "M / 38 / 8";
+  const details = {};
+
+  item.product_details.map((obj) => {
+    const key = Object.keys(obj);
+    details[key] = obj[key];
+  });
 
   return (
     <Link to={`/offer/${item._id}`} className="item">
-      <article>
+      <article className="item-article">
         <div className="user">
           <img src={user.avatar.url} className="avatar" />
           <span>{user.username}</span>
@@ -21,8 +24,8 @@ const Item = ({ item }) => {
             })}{" "}
             €
           </p>
-          <p>{size}</p>
-          <p>{brand}</p>
+          <p>{details.TAILLE}</p>
+          <p>{details.MARQUE}</p>
         </div>
       </article>
     </Link>
