@@ -25,14 +25,7 @@ const Signup = ({ setUserToken }) => {
         password: password,
         newsletter: newsletter,
       });
-      // {
-      //     "_id": "69b2d1ee16d996c4ec8918dd",
-      //     "email": "smol@gmail.com",
-      //     "token": "CDmjQrOSI3pNJe9Kf0eg9xcvOgH6ERyyFJqrfFLvHj4Z2o3vFGWXVOWfZTKwx7i_",
-      //     "account": {
-      //         "username": "smolGuy"
-      //     }
-      // }
+
       Cookies.set("userToken", response.data.token, { expires: 7 });
       setUserToken(response.data.token);
     } catch (error) {
@@ -43,8 +36,6 @@ const Signup = ({ setUserToken }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // TODO handle verificators
 
     registerUser();
     navigate("/");
@@ -68,6 +59,7 @@ const Signup = ({ setUserToken }) => {
               onChange={(event) => {
                 handleChange(event, setUsername);
               }}
+              required
             />
             <span>
               Utilise des lettres, des chiffres ou les deux. Les autres membres
@@ -84,6 +76,7 @@ const Signup = ({ setUserToken }) => {
               onChange={(event) => {
                 handleChange(event, setEmail);
               }}
+              required
             />
             <span>
               Saisis l'adresse e-mail que tu souhaites utiliser sur Vinted
@@ -94,11 +87,14 @@ const Signup = ({ setUserToken }) => {
               type="password"
               name="password"
               id="password"
+              pattern="^.*(?=.{7,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&?]).*$"
+              minLenght="7"
               placeholder="Mot de passe"
               value={password}
               onChange={(event) => {
                 handleChange(event, setPassword);
               }}
+              required
             />
             <span>
               Saisis au moins 7 caractères, dont au moins 1 lettre et 1 chiffre

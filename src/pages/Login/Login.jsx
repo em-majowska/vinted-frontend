@@ -60,6 +60,8 @@ const Login = ({ setUserToken }) => {
               type="password"
               name="password"
               id="password"
+              // pattern="^.*(?=.{7,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&?]).*$"
+              // minLenght="7"
               placeholder="Mot de passe"
               value={password}
               onChange={(event) => handleChange(event, setPassword)}
