@@ -1,7 +1,8 @@
+import "./Offer.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import ItemDetails from "../components/ItemDetails";
+import ItemDetails from "../../components/ItemDetails";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Offer = () => {
@@ -22,17 +23,26 @@ const Offer = () => {
       }
     };
 
+    // timeout or response.data.message to show it doesnt exist
+
     fetchData();
   }, [id]);
 
-  return isLoading ? (
-    <p>Loading...</p>
-  ) : (
-    <main>
-      <article className="offer container">
-        <img src={item.product_pictures[0].url} alt="photo du produit" />
-        <ItemDetails item={item} />
-      </article>
+  return (
+    <main className="offer">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="container">
+          <article>
+            <img
+              src={item.product_pictures[0].secure_url}
+              alt="photo du produit"
+            />
+            <ItemDetails item={item} />
+          </article>
+        </div>
+      )}
     </main>
   );
 };

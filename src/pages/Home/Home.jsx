@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
-import Hero from "../components/Hero";
+import "./Home.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Offers from "../components/Offers";
+import Hero from "../../components/Hero";
+import Offers from "../../components/Offers";
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -25,12 +26,16 @@ const Home = () => {
     fetchData();
   }, []);
 
-  return isLoading ? (
-    <p>Loading...</p>
-  ) : (
-    <main>
-      <Hero />
-      <Offers data={data.offers} />
+  return (
+    <main className="home">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <Hero />
+          <Offers data={data.offers} />
+        </>
+      )}
     </main>
   );
 };
