@@ -226,9 +226,10 @@ article.item-article > img {
 .offer {
   display: flex;
   justify-content: space-evenly;
+  align-items: start;
   gap: 55px;
   margin-block-start: 50px;
-  height: 60vh;
+
   img,
   aside {
     border-radius: 5px;
@@ -236,7 +237,6 @@ article.item-article > img {
 
   img {
     object-fit: cover;
-    /* height: 620px; */
     height: auto;
     aspect-ratio: 3 / 4;
   }
