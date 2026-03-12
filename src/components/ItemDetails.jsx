@@ -1,6 +1,8 @@
 import { MdOutlineVerifiedUser } from "react-icons/md";
 
 const ItemDetails = ({ item }) => {
+  const productPriceTaxed =
+    Math.round((item.product_price + item.product_price * 0.12) * 100) / 100;
   const details = {};
 
   item.product_details.map((obj) => {
@@ -25,12 +27,9 @@ const ItemDetails = ({ item }) => {
             €
           </span>
           <span>
-            {(item.product_price + item.product_price * 0.12).toLocaleString(
-              "fr-FR",
-              {
-                minimumFractionDigits: 2,
-              },
-            )}{" "}
+            {productPriceTaxed.toLocaleString("fr-FR", {
+              minimumFractionDigits: 2,
+            })}{" "}
             €
           </span>
           <p>
