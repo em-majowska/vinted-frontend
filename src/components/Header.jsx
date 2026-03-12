@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import Cookies from "js-cookie";
 
-const Header = () => {
+const Header = ({ userToken, setUserToken }) => {
+  const navigate = useNavigate();
+
   return (
     <header>
       <div className="container">
@@ -39,12 +42,27 @@ const Header = () => {
         </form>
         <nav>
           <ul>
-            <li>
-              <a href="#">S'inscrite</a>
-            </li>
-            <li>
-              <a href="#">Se connecter</a>
-            </li>
+            {userToken ? (
+              <li>
+                <button
+                  onClick={() => {
+                    Cookies.remove("userToken");
+                    setUserToken(null);
+                    navigate("/");
+                  }}>
+                  Se déconnecter
+                </button>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/signup">S'inscrire</Link>
+                </li>
+                <li>
+                  <Link to="/login">Se connecter</Link>
+                </li>
+              </>
+            )}
             <li>
               <a href="#" className="btn-filled">
                 Vends tes articles

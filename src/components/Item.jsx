@@ -9,9 +9,10 @@ const Item = ({ item }) => {
     const key = Object.keys(obj);
     details[key] = obj[key];
   });
-  console.log(details);
+  // console.log(details);
   const productPriceTaxed =
     Math.round((item.product_price + item.product_price * 0.12) * 100) / 100;
+
   return (
     <Link to={`/offer/${item._id}`} className="item">
       <article className="item-article">

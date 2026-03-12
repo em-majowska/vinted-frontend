@@ -39,11 +39,13 @@ a {
   padding: 0.8em 1em;
   border-radius: 5px;
   cursor: pointer;
+  text-wrap: nowrap;
 }
 
 .btn-filled {
   background: var(--blue);
   color: white;
+  text-wrap: nowrap;
 }
 
 /* ================================================================ */
@@ -125,16 +127,110 @@ header {
     gap: 20px;
 
     a {
-      padding: 0.5em 0.7em;
       border: 1px solid var(--blue);
-      border-radius: 5px;
-      text-wrap: nowrap;
-
       color: var(--blue);
     }
 
     li:last-child {
       margin-inline-start: 70px;
     }
+  }
+}
+
+/* ================================================================ */
+/* ============================ FORMS ============================== */
+/* ================================================================ */
+
+.signup,
+.login {
+  .container {
+    max-width: 375px;
+    border: 1px solid var(--light-grey);
+    border-radius: 5px;
+    padding: 0 16px;
+    margin-block-start: 50px;
+    color: var(--dark-grey);
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    padding-block: 32px;
+    color: black;
+  }
+
+  label:not(:last-of-type) {
+    margin-block-end: 30px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    width: 100%;
+    padding-block: 5px;
+    border-width: 0 0 1px 0;
+    border-color: var(--light-grey);
+    outline: none;
+  }
+
+  span {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  input[type="checkbox"] {
+    width: 0;
+    height: 0;
+    margin: 0;
+    display: inline;
+    visibility: hidden;
+  }
+
+  span.checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--dark-grey);
+    border-radius: 5px;
+    width: 24px;
+    height: 24px;
+
+    svg {
+      opacity: 0;
+    }
+  }
+  p {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  input[type="checkbox"]:checked + p .checkbox {
+    background-color: var(--blue);
+    border-color: var(--blue);
+
+    svg {
+      color: white;
+      opacity: 1;
+    }
+  }
+
+  label:has(.checkbox) {
+    margin-block-end: 5px;
+  }
+
+  .btn-filled {
+    margin-block-start: 50px;
+    text-align: center;
+  }
+
+  section > a:last-child {
+    display: block;
+    margin-block: 20px;
+    color: var(--blue);
+    font-size: 0.875rem;
+    text-align: center;
   }
 }
