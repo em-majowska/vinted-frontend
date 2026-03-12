@@ -9,6 +9,7 @@
   --light-grey: #edf2f2;
   --dark-grey: #5a6566;
   --grey: #999999;
+  --red: #d04555;
 }
 
 body {
@@ -64,10 +65,10 @@ header {
 
   /* height: 52px; real vinted */
 
-  a:has(img),
-  width {
+  a:has(img) {
     padding: 0;
     min-width: max-content;
+    align-self: start;
   }
   img {
     width: 80px;
@@ -120,19 +121,29 @@ header {
 
   nav {
     margin-inline: auto 0;
+    align-self: start;
   }
 
   ul {
     display: flex;
+    align-items: start;
     gap: 20px;
+    font-size: 0.875rem;
 
     a {
       border: 1px solid var(--blue);
       color: var(--blue);
     }
-
+    li {
+      display: flex;
+    }
     li:last-child {
-      margin-inline-start: 70px;
+      margin-inline: auto 0;
+    }
+
+    .btn-logout {
+      background-color: var(--red);
+      color: white;
     }
   }
 }
@@ -173,6 +184,10 @@ header {
     border-width: 0 0 1px 0;
     border-color: var(--light-grey);
     outline: none;
+  }
+
+  input:invalid {
+    border-color: var(--red);
   }
 
   span {

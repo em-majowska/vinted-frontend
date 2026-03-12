@@ -45,6 +45,7 @@ const Header = ({ userToken, setUserToken }) => {
             {userToken ? (
               <li>
                 <button
+                  className="btn-logout"
                   onClick={() => {
                     Cookies.remove("userToken");
                     setUserToken(null);
