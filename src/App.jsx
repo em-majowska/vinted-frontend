@@ -18,7 +18,7 @@ function App() {
   const handleToken = (token) => {
     if (!token) {
       Cookies.remove("userToken");
-      setIsConnected(true);
+      setIsConnected(false);
     } else {
       Cookies.set("userToken", token, { expires: 7 });
       setIsConnected(true);
