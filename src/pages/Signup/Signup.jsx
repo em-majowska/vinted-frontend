@@ -2,10 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-const Signup = ({ setUserToken }) => {
+const Signup = ({ handleToken }) => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -26,8 +25,7 @@ const Signup = ({ setUserToken }) => {
         newsletter: newsletter,
       });
 
-      Cookies.set("userToken", response.data.token, { expires: 7 });
-      setUserToken(response.data.token);
+      handleToken(response.data.token);
     } catch (error) {
       error.message && console.log(error.message);
       error.response && console.log(error.response.data);
@@ -105,7 +103,7 @@ const Signup = ({ setUserToken }) => {
               type="checkbox"
               name="newsletter"
               id="newsletter"
-              onClick={() => {
+              onChange={() => {
                 setNewsletter(!newsletter);
               }}
             />

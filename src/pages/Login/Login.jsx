@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const Login = ({ setUserToken }) => {
+const Login = ({ handleToken }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -22,8 +21,7 @@ const Login = ({ setUserToken }) => {
         password: password,
       });
 
-      Cookies.set("userToken", response.data.token, { expires: 7 });
-      setUserToken(response.data.token);
+      handleToken(response.data.token);
     } catch (error) {
       error.message && console.log(error.message);
       error.response && console.log(error.response.data);

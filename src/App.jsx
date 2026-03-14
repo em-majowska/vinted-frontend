@@ -7,27 +7,45 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import { MdError } from "react-icons/md";
 
 function App() {
-  const [userToken, setUserToken] = useState(Cookies.get("userToken") || "");
+  const [isConnected, setIsConnected] = useState(false);
+
+  const handleToken = (token) => {
+    if (!token) {
+      Cookies.remove("userToken");
+      setIsConnected(true);
+    } else {
+      Cookies.set("userToken", token, { expires: 7 });
+      setIsConnected(true);
+    }
+  };
 
   return (
     <>
       <Router>
-        <Header userToken={userToken} setUserToken={setUserToken} />
+        <Header isConnected={isConnected} handleToken={handleToken} />
         <Routes>
-          <Route
-            path="/"
-            element={<Home userToken={userToken} setUserToken={setUserToken} />}
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/offer/:id" element={<Offer />} />
           <Route
             path="/signup"
-            element={<Signup setUserToken={setUserToken} />}
+            element={<Signup setIsConnected={setIsConnected} />}
           />
           <Route
             path="/login"
-            element={<Login setUserToken={setUserToken} />}
+            element={<Login setIsConnected={setIsConnected} />}
+          />
+          <Route
+            path="*"
+            element={
+              <main className="container">
+                <div className="error404">
+                  <MdError /> <h1>Page non trouvable</h1>
+                </div>
+              </main>
+            }
           />
         </Routes>
       </Router>

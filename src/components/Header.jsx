@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import Cookies from "js-cookie";
 
-const Header = ({ userToken, setUserToken }) => {
+const Header = ({ isConnected, handleToken }) => {
   const navigate = useNavigate();
 
   return (
@@ -42,13 +41,12 @@ const Header = ({ userToken, setUserToken }) => {
         </form>
         <nav>
           <ul>
-            {userToken ? (
+            {isConnected ? (
               <li>
                 <button
                   className="btn-logout"
                   onClick={() => {
-                    Cookies.remove("userToken");
-                    setUserToken(null);
+                    handleToken(null);
                     navigate("/");
                   }}>
                   Se déconnecter

@@ -249,3 +249,20 @@ header {
     text-align: center;
   }
 }
+
+.container:has(.error404) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error404 {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--blue);
+
+  svg {
+    font-size: 50px;
+  }
+}
