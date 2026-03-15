@@ -29,7 +29,7 @@
   flex-wrap: wrap;
   column-gap: 12px;
   row-gap: 30px;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 /* ================================================================ */
@@ -45,6 +45,10 @@
   p,
   span {
     color: var(--dark-grey);
+  }
+
+  .item-article {
+    width: 100%;
   }
 }
 
@@ -87,5 +91,23 @@ article.item-article > img {
         display: inline;
       }
     }
+  }
+}
+
+@media (max-width: 1200px) {
+  .item {
+    min-width: calc((100% - 36px) / 4);
+  }
+}
+
+@media (max-width: 960px) {
+  .item {
+    min-width: calc((100% - 24px) / 3);
+  }
+}
+
+@media (max-width: 720px) {
+  .item {
+    min-width: calc(50% - 6px);
   }
 }
