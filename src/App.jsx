@@ -12,6 +12,8 @@ import { MdError } from "react-icons/md";
 function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [values, setValues] = useState([20, 50]);
+  const [searchValue, setSearchValue] = useState("");
+  const [ascSorting, setAscSorting] = useState(false);
 
   const handleToken = (token) => {
     if (!token) {
@@ -31,9 +33,22 @@ function App() {
           handleToken={handleToken}
           values={values}
           setValues={setValues}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          ascSorting={ascSorting}
+          setAscSorting={setAscSorting}
         />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                searchValue={searchValue}
+                values={values}
+                ascSorting={ascSorting}
+              />
+            }
+          />
           <Route path="/offer/:id" element={<Offer />} />
           <Route
             path="/signup"

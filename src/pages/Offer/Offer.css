@@ -122,3 +122,13 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .offer article {
+    flex-direction: column;
+
+    img {
+      width: 100%;
+    }
+  }
+}
