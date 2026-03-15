@@ -1,13 +1,16 @@
 import "./Offer.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ItemDetails from "../../components/ItemDetails";
+import { MdError } from "react-icons/md";
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Offer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const { id } = useParams();
 
@@ -19,7 +22,7 @@ const Offer = () => {
         setIsLoading(false);
       } catch (error) {
         error.message && console.log(error.message);
-        error.response && console.log(error.message.data);
+        error.response && setErrorMessage(error.response.message);
       }
     };
 
@@ -34,6 +37,7 @@ const Offer = () => {
         <p>Loading...</p>
       ) : (
         <div className="container">
+          !errorMessage ? (
           <article>
             <img
               src={item.product_pictures[0].secure_url}
@@ -41,6 +45,11 @@ const Offer = () => {
             />
             <ItemDetails item={item} />
           </article>
+          ) :
+          <div className="error404">
+            <MdError />
+            <p>{errorMessage}</p>
+          </div>
         </div>
       )}
     </main>
