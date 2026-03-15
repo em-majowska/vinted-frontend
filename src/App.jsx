@@ -11,6 +11,7 @@ import { MdError } from "react-icons/md";
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
+  const [values, setValues] = useState([20, 50]);
 
   const handleToken = (token) => {
     if (!token) {
@@ -25,7 +26,12 @@ function App() {
   return (
     <>
       <Router>
-        <Header isConnected={isConnected} handleToken={handleToken} />
+        <Header
+          isConnected={isConnected}
+          handleToken={handleToken}
+          values={values}
+          setValues={setValues}
+        />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/offer/:id" element={<Offer />} />

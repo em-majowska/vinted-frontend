@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import PriceRange from "./PriceRange";
 
-const Header = ({ isConnected, handleToken }) => {
+const Header = ({ isConnected, handleToken, values, setValues }) => {
   const navigate = useNavigate();
 
   return (
@@ -26,17 +27,10 @@ const Header = ({ isConnected, handleToken }) => {
               Trier par prix :
               <input type="checkbox" name="sorting" id="sort" />
             </label>
-            <label htmlFor="price" className="price-filter">
-              Prix entre :
-              <input
-                type="range"
-                name="price"
-                id="price"
-                min="0"
-                max="2000"
-                step="10"
-              />
-            </label>
+            <div className="price-filter">
+              <span> Prix entre :</span>
+              <PriceRange values={values} setValues={setValues} />
+            </div>
           </div>
         </form>
         <nav>
