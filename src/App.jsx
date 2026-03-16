@@ -71,6 +71,7 @@ function App() {
               />
             }
           />
+          <Route path="/publish" element={<Publish />} />
           <Route
             path="*"
             element={

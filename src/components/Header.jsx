@@ -85,9 +85,9 @@ const Header = ({
               </>
             )}
             <li>
-              <a href="#" className="btn-filled">
+              <Link to="/publish" className="btn-filled">
                 Vends tes articles
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

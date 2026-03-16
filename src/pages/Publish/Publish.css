@@ -1,0 +1,82 @@
+.publish {
+  background-color: var(--light-grey);
+  .container {
+    padding-block: 50px;
+  }
+
+  h1 {
+    font-size: 1.375rem;
+    font-weight: bold;
+    margin-block-end: 20px;
+  }
+
+  section {
+    border: 1px solid var(--light-grey);
+    background-color: white;
+    border-radius: 5px;
+    margin-block-end: 24px;
+  }
+
+  .file-wrapper {
+    margin: 24px 24px 12px 24px;
+    border: 1px dashed var(--light-grey);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+
+    label {
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: 5px;
+      padding: 0.8em 1em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      cursor: pointer;
+
+      svg {
+        font-size: 1.5rem;
+      }
+    }
+
+    input {
+      display: none;
+    }
+  }
+
+  section:first-of-type p {
+    padding: 12px;
+    margin: 0px 24px 24px 24px;
+    background-color: #c9f0ee;
+    border-radius: 5px;
+
+    svg {
+      font-size: 1.5rem;
+      color: var(--blue);
+    }
+  }
+
+  label {
+    display: flex;
+    border-block-end: 1px solid var(--light-grey);
+    padding: 24px;
+    > * {
+      flex: 1;
+    }
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+  .price label {
+    border-block-end: 0;
+  }
+  button {
+    margin-inline: auto 0;
+  }
+}
