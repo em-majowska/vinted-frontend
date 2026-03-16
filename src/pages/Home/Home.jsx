@@ -4,13 +4,14 @@ import axios from "axios";
 import Hero from "../../components/Hero";
 import Offers from "../../components/Offers";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 const Home = ({ searchValue, ascSorting, values }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const localUrl = import.meta.env.VITE_LOCAL_URL;
     const params = {
       title: searchValue,
       sort: ascSorting ? "price-asc" : "price-desc",
@@ -20,7 +21,9 @@ const Home = ({ searchValue, ascSorting, values }) => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/offers`, { params });
+        const response = await axios.get(localUrl + `/offers`, {
+          params,
+        });
 
         setData(response.data);
         setIsLoading(false);

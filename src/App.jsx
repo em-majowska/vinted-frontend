@@ -8,10 +8,13 @@ import Login from "./pages/Login/Login";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { MdError } from "react-icons/md";
+import Publish from "./pages/Publish/Publish";
 
 function App() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [values, setValues] = useState([20, 50]);
+  const [isConnected, setIsConnected] = useState(
+    Cookies.get("userToken") || false,
+  );
+  const [values, setValues] = useState([0, 1000]);
   const [searchValue, setSearchValue] = useState("");
   const [ascSorting, setAscSorting] = useState(false);
 
@@ -52,11 +55,21 @@ function App() {
           <Route path="/offer/:id" element={<Offer />} />
           <Route
             path="/signup"
-            element={<Signup setIsConnected={setIsConnected} />}
+            element={
+              <Signup
+                setIsConnected={setIsConnected}
+                handleToken={handleToken}
+              />
+            }
           />
           <Route
             path="/login"
-            element={<Login setIsConnected={setIsConnected} />}
+            element={
+              <Login
+                setIsConnected={setIsConnected}
+                handleToken={handleToken}
+              />
+            }
           />
           <Route
             path="*"

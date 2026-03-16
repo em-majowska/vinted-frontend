@@ -2,9 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 const Login = ({ handleToken }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const localUrl = import.meta.env.VITE_LOCAL_URL;
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ const Login = ({ handleToken }) => {
 
   const loginUser = async () => {
     try {
-      const response = await axios.post(apiUrl + "/user/login", {
+      const response = await axios.post(localUrl + "/user/login", {
         email: email,
         password: password,
       });
@@ -58,8 +59,6 @@ const Login = ({ handleToken }) => {
               type="password"
               name="password"
               id="password"
-              // pattern="^.*(?=.{7,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&?]).*$"
-              // minLenght="7"
               placeholder="Mot de passe"
               value={password}
               onChange={(event) => handleChange(event, setPassword)}

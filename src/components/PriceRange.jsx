@@ -2,7 +2,7 @@ import { getTrackBackground, Range } from "react-range";
 
 const PriceRange = ({ values, setValues }) => {
   const min = 0;
-  const max = 200;
+  const max = 1000;
   const step = 10;
   return (
     <Range

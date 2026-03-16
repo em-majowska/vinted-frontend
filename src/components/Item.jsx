@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { MdOutlineVerifiedUser } from "react-icons/md";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const Item = ({ item }) => {
   const user = item.owner.account;
   const details = {};
 
   item.product_details.map((obj) => {
-    const key = Object.keys(obj);
-    details[key] = obj[key];
+    if (Object.keys(obj) !== null) {
+      const key = Object.keys(obj);
+      details[key] = obj[key];
+    }
   });
   const productPriceTaxed =
     Math.round((item.product_price + item.product_price * 0.12) * 100) / 100;
@@ -16,11 +19,19 @@ const Item = ({ item }) => {
     <Link to={`/offer/${item._id}`} className="item">
       <article className="item-article">
         <div className="user">
-          <img src={user.avatar.url} className="avatar" />
+          {user.avatar ? (
+            <img src={user.avatar.secure_url} className="avatar" />
+          ) : (
+            <FaRegUserCircle className="avatar" />
+          )}
+
           <span>{user.username}</span>
         </div>
         <img
-          src={item.product_image.secure_url}
+          src={
+            item.product_image.secure_url ||
+            "https://operaparallele.org/wp-content/uploads/2023/09/Placeholder_Image.png"
+          }
           alt="image du produit à vendre"
         />
         <div className="item-details">

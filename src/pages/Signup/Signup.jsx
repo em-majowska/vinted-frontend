@@ -3,8 +3,10 @@ import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 
-const apiUrl = import.meta.env.VITE_API_URL;
 const Signup = ({ handleToken }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const localUrl = import.meta.env.VITE_LOCAL_URL;
+
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -18,7 +20,7 @@ const Signup = ({ handleToken }) => {
 
   const registerUser = async () => {
     try {
-      const response = await axios.post(apiUrl + "/user/signup", {
+      const response = await axios.post(localUrl + "/user/signup", {
         username: username,
         email: email,
         password: password,
@@ -86,7 +88,7 @@ const Signup = ({ handleToken }) => {
               name="password"
               id="password"
               pattern="^.*(?=.{7,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&?]).*$"
-              minLenght="7"
+              minlenght="7"
               placeholder="Mot de passe"
               value={password}
               onChange={(event) => {
@@ -120,7 +122,6 @@ const Signup = ({ handleToken }) => {
             avoir au moins 18 ans.
           </span>
 
-          {/* <Link className="btn-filled">S'inscrire</Link> */}
           <button className="btn-filled">S'inscrire</button>
         </form>
         <Link to="/login">Tu as déjà un compte ? Connecte-toi !</Link>

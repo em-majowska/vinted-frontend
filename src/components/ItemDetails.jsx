@@ -9,14 +9,16 @@ const ItemDetails = ({ item }) => {
     const key = Object.keys(obj);
     details[key] = obj[key];
   });
+  console.log(item);
 
   return (
     <aside>
       <div className="top">
         <h1>{item.product_name}</h1>
         <p>
-          <span>{details.TAILLE}</span> &#8729; <span>{details["ÉTAT"]}</span>{" "}
-          &#8729; <span className="brand">{details.MARQUE}</span> &#8729;{" "}
+          {details["TAILLE"] && <span>{details.TAILLE} &#8729; </span>}
+          <span>{details["ÉTAT"]}</span> &#8729;{" "}
+          <span className="brand">{details.MARQUE}</span> &#8729;{" "}
           <span>Ajouté il y a 2 heures</span>
         </p>
         <div className="price-details">
@@ -43,7 +45,7 @@ const ItemDetails = ({ item }) => {
           return (
             <p key={index}>
               <span>{key.toString().toLowerCase()}</span>{" "}
-              <span>{obj[key].toLowerCase()}</span>
+              <span>{obj[key] && obj[key].toLowerCase()}</span>
             </p>
           );
         })}

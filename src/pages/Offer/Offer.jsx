@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 import ItemDetails from "../../components/ItemDetails";
 import { MdError } from "react-icons/md";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 const Offer = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const localUrl = import.meta.env.VITE_LOCAL_URL;
+
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -17,7 +18,8 @@ const Offer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/offer/${id}`);
+        const response = await axios.get(localUrl + "/offer/" + id);
+
         setItem(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -37,19 +39,20 @@ const Offer = () => {
         <p>Loading...</p>
       ) : (
         <div className="container">
-          !errorMessage ? (
-          <article>
-            <img
-              src={item.product_pictures[0].secure_url}
-              alt="photo du produit"
-            />
-            <ItemDetails item={item} />
-          </article>
-          ) :
-          <div className="error404">
-            <MdError />
-            <p>{errorMessage}</p>
-          </div>
+          {!errorMessage ? (
+            <article>
+              <img
+                src={item.product_pictures[0].secure_url}
+                alt="photo du produit"
+              />
+              <ItemDetails item={item} />
+            </article>
+          ) : (
+            <div className="error404">
+              <MdError />
+              <p>{errorMessage}</p>
+            </div>
+          )}
         </div>
       )}
     </main>
