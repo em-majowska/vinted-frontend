@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
+import { IoAddOutline } from "react-icons/io5";
+import Cookies from "js-cookie";
 
 const Signup = ({ handleToken }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -13,21 +15,25 @@ const Signup = ({ handleToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newsletter, setNewsletter] = useState(false);
+  const [avatar, setAvatar] = useState(null);
 
   const handleChange = (event, setState) => {
     setState(event.target.value);
   };
 
   const registerUser = async () => {
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("newsletter", newsletter);
+    formData.append("picture", avatar);
+
     try {
-      const response = await axios.post(localUrl + "/user/signup", {
-        username: username,
-        email: email,
-        password: password,
-        newsletter: newsletter,
-      });
+      const response = await axios.post(localUrl + "/user/signup", formData);
 
       handleToken(response.data.token);
+      navigate("/");
     } catch (error) {
       error.message && console.log(error.message);
       error.response && console.log(error.response.data);
@@ -38,7 +44,6 @@ const Signup = ({ handleToken }) => {
     event.preventDefault();
 
     registerUser();
-    navigate("/");
   };
 
   return (
@@ -49,6 +54,21 @@ const Signup = ({ handleToken }) => {
           onSubmit={(event) => {
             handleSubmit(event);
           }}>
+          <section>
+            <div className="file-wrapper">
+              <label htmlFor="avatar" className="file">
+                <IoAddOutline /> Ajoute une photo
+                <input
+                  type="file"
+                  name="avatar"
+                  id="avatar"
+                  onChange={(event) => {
+                    setAvatar(event.target.files[0]);
+                  }}
+                />
+              </label>
+            </div>
+          </section>
           <label htmlFor="name">
             <input
               type="text"

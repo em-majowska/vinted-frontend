@@ -33,7 +33,7 @@ const Login = ({ handleToken }) => {
     event.preventDefault();
 
     loginUser();
-    navigate("/");
+    navigate("/publish");
   };
 
   return (

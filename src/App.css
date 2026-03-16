@@ -135,6 +135,37 @@ a {
   }
 }
 
+.file-wrapper {
+  margin: 24px 24px 12px 24px;
+  border: 1px dashed var(--light-grey);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+
+  label {
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 5px;
+    padding: 0.8em 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    cursor: pointer;
+
+    svg {
+      font-size: 1.5rem;
+    }
+  }
+
+  input {
+    display: none;
+  }
+}
+
 /* ================================================================ */
 /* ============================ HEADER ============================== */
 /* ================================================================ */
