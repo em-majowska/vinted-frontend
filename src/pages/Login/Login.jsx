@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const Login = ({ handleToken }) => {
-  const apiUrl = import.meta.env.VITE_API_URL;
   const localUrl = import.meta.env.VITE_LOCAL_URL;
 
   const navigate = useNavigate();
