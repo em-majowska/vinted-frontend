@@ -5,11 +5,13 @@ import InputText from "../../components/InputText";
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
 
 const Publish = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const localUrl = import.meta.env.VITE_LOCAL_URL;
 
+  const token = Cookies.get("userToken");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
@@ -19,7 +21,7 @@ const Publish = () => {
 
   const [city, setCity] = useState("");
   const [price, setPrice] = useState("");
-  const [picture, setPicture] = useState([]);
+  const [picture, setPicture] = useState(null);
 
   const [isSuccess, setIsSuccess] = useState(null);
 
@@ -44,7 +46,7 @@ const Publish = () => {
     try {
       const response = await axios.post(localUrl + "/offer/publish", formData, {
         headers: {
-          Authorization: "Bearer " + Cookies.get("userToken"),
+          Authorization: "Bearer " + token,
         },
       });
       setIsSuccess(response.data);
@@ -58,30 +60,40 @@ const Publish = () => {
     setState(event.target.value);
   };
 
-  return (
+  return !token ? (
+    <Navigate to="/login" />
+  ) : (
     <main className="publish">
       <div className="container">
         <h1>Vends ton article</h1>
         {isSuccess ? (
-          <p>Ton article a été ajouté !</p>
+          <p className="success">Ton article a été ajouté !</p>
         ) : (
           <form onSubmit={handleSubmit}>
             <section>
               <div className="file-wrapper">
-                <label htmlFor="picture" className="file">
-                  <IoAddOutline /> Ajoute une photo
-                  <input
-                    type="file"
-                    name="picture"
-                    id="picture"
-                    onChange={(event) => {
-                      setPicture([...picture, event.target.files[0]]);
-                    }}
-                    multiple
-                  />
-                </label>
+                {picture ? (
+                  Object.values(picture).map((pic, index) => (
+                    <p key={index} className="added-file">
+                      {pic.name}
+                    </p>
+                  ))
+                ) : (
+                  <label htmlFor="picture" className="file">
+                    <IoAddOutline /> Ajoute une photo
+                    <input
+                      type="file"
+                      name="picture"
+                      id="picture"
+                      onChange={(event) => {
+                        setPicture(event.target.files);
+                      }}
+                      multiple
+                    />
+                  </label>
+                )}
               </div>
-              <p>
+              <p className="tip">
                 <IoShirtOutline />
                 Attirez l'attention des acheteurs - ajoutez des photos de haute
                 qualité.

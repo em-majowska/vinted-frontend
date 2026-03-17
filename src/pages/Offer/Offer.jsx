@@ -41,10 +41,25 @@ const Offer = () => {
         <div className="container">
           {!errorMessage ? (
             <article>
-              <img
-                src={item.product_pictures[0].secure_url}
-                alt="photo du produit"
-              />
+              {item.product_pictures.length > 1 ? (
+                <div className="img-container">
+                  <div className="col-1">
+                    <img src={item.product_image.secure_url} />
+                  </div>
+                  <div className="col-2">
+                    {item.product_pictures.map((pic, index) => {
+                      return (
+                        index > 0 && <img key={index} src={pic.secure_url} />
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <img
+                  src={item.product_pictures[0].secure_url}
+                  alt="photo du produit"
+                />
+              )}
               <ItemDetails item={item} />
             </article>
           ) : (

@@ -9,7 +9,6 @@ const ItemDetails = ({ item }) => {
     const key = Object.keys(obj);
     details[key] = obj[key];
   });
-  console.log(item);
 
   return (
     <aside>
@@ -21,6 +20,8 @@ const ItemDetails = ({ item }) => {
           <span className="brand">{details.MARQUE}</span> &#8729;{" "}
           <span>Ajouté il y a 2 heures</span>
         </p>
+      </div>
+      <div className="middle">
         <div className="price-details">
           <span>
             {item.product_price.toLocaleString("fr-FR", {
@@ -38,17 +39,17 @@ const ItemDetails = ({ item }) => {
             Inclut la Protection acheteurs <MdOutlineVerifiedUser />
           </p>
         </div>
-      </div>
-      <div className="details">
-        {item.product_details.map((obj, index) => {
-          const key = Object.keys(obj);
-          return (
-            <p key={index}>
-              <span>{key.toString().toLowerCase()}</span>{" "}
-              <span>{obj[key] && obj[key].toLowerCase()}</span>
-            </p>
-          );
-        })}
+        <div className="details">
+          {item.product_details.map((obj, index) => {
+            const key = Object.keys(obj);
+            return (
+              <p key={index}>
+                <span>{key.toString().toLowerCase()}</span>{" "}
+                <span>{obj[key] && obj[key].toLowerCase()}</span>
+              </p>
+            );
+          })}
+        </div>
       </div>
       <p className="description">{item.product_description}</p>
       <p>

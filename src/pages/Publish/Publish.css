@@ -48,7 +48,7 @@
     }
   }
 
-  section:first-of-type p {
+  section:first-of-type p.tip {
     padding: 12px;
     margin: 0px 24px 24px 24px;
     background-color: #c9f0ee;
@@ -57,6 +57,15 @@
     svg {
       font-size: 1.5rem;
       color: var(--blue);
+    }
+  }
+
+  .file-wrapper:has(.added-file) {
+    flex-direction: column;
+    gap: 10px;
+
+    > * {
+      width: 200px;
     }
   }
 
@@ -79,4 +88,16 @@
   button {
     margin-inline: auto 0;
   }
+}
+
+.publish .success {
+  display: block;
+  width: max-content;
+  padding: 0.8em 1em;
+  margin: 100px auto;
+  border-radius: 5px;
+  color: var(--blue);
+  background-color: white;
+  text-align: center;
+  font-size: 1.5rem;
 }

@@ -3,7 +3,6 @@ import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 import { IoAddOutline } from "react-icons/io5";
-import Cookies from "js-cookie";
 
 const Signup = ({ handleToken }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
