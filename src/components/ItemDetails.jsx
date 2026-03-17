@@ -1,8 +1,13 @@
 import { MdOutlineVerifiedUser } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const ItemDetails = ({ item }) => {
-  const productPriceTaxed =
-    Math.round((item.product_price + item.product_price * 0.12) * 100) / 100;
+  const tax = Math.round((item.product_price * 0.12 * 100) / 100);
+  const total = Math.round((item.product_price + tax + 1.95) * 100) / 100;
+  const delivery = 1.95;
+
+  const productPriceTaxed = Math.round((item.product_price + tax) * 100) / 100;
+
   const details = {};
 
   item.product_details.map((obj) => {
@@ -56,7 +61,12 @@ const ItemDetails = ({ item }) => {
         Envoi <span>à partir de 1,95€</span>
       </p>
       <div className="buttons">
-        <button className="btn-filled">Acheter</button>
+        <Link
+          to="/payment"
+          className="btn-filled"
+          state={{ item, tax, total, delivery }}>
+          Acheter
+        </Link>
         <button>Faire une offre</button>
         <button>Message</button>
       </div>

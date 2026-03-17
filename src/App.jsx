@@ -9,6 +9,7 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { MdError } from "react-icons/md";
 import Publish from "./pages/Publish/Publish";
+import Payment from "./pages/Payment/Payment";
 
 function App() {
   const [isConnected, setIsConnected] = useState(
@@ -76,6 +77,7 @@ function App() {
             }
           />
           <Route path="/publish" element={<Publish />} />
+          <Route path="/payment" element={<Payment />} />
           <Route
             path="*"
             element={

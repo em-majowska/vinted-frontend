@@ -146,6 +146,10 @@
       color: var(--blue);
       border: 1px solid var(--blue);
     }
+
+    .btn-filled {
+      text-align: center;
+    }
   }
 }
 
