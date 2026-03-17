@@ -18,10 +18,10 @@ const Publish = () => {
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
   const [color, setColor] = useState("");
-
   const [city, setCity] = useState("");
   const [price, setPrice] = useState("");
   const [picture, setPicture] = useState(null);
+  const [previewPicture, setPreviewPicture] = useState([]);
 
   const [isSuccess, setIsSuccess] = useState(null);
 
@@ -72,26 +72,41 @@ const Publish = () => {
           <form onSubmit={handleSubmit}>
             <section>
               <div className="file-wrapper">
-                {picture ? (
-                  Object.values(picture).map((pic, index) => (
-                    <p key={index} className="added-file">
-                      {pic.name}
-                    </p>
-                  ))
-                ) : (
-                  <label htmlFor="picture" className="file">
-                    <IoAddOutline /> Ajoute une photo
-                    <input
-                      type="file"
-                      name="picture"
-                      id="picture"
-                      onChange={(event) => {
-                        setPicture(event.target.files);
-                      }}
-                      multiple
-                    />
-                  </label>
+                {previewPicture && (
+                  <div className="previews">
+                    {previewPicture.map((pic, index) => {
+                      return (
+                        <img key={index} src={pic} alt="" className="preview" />
+                      );
+                    })}
+                  </div>
                 )}
+                <label htmlFor="picture" className="file">
+                  <IoAddOutline /> Ajoute une photo
+                  <input
+                    type="file"
+                    name="picture"
+                    id="picture"
+                    onChange={(event) => {
+                      // prevent adding more than 5 pictures
+                      if (
+                        previewPicture.length + event.target.files.length >
+                        5
+                      ) {
+                        event.preventDefault();
+                        alert("Tu peux ajouter 5 images au  maximum.");
+                        return;
+                      }
+                      Object.values(event.target.files).forEach((pic) => {
+                        const objectUrl = URL.createObjectURL(pic);
+                        setPreviewPicture((prev) => [...prev, objectUrl]);
+                      });
+
+                      setPicture(event.target.files);
+                    }}
+                    multiple
+                  />
+                </label>
               </div>
               <p className="tip">
                 <IoShirtOutline />

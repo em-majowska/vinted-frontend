@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: auto;
 
     label {
       color: var(--blue);
@@ -37,6 +37,7 @@
       gap: 10px;
       font-weight: bold;
       cursor: pointer;
+      margin-block-end: 24px;
 
       svg {
         font-size: 1.5rem;
@@ -60,12 +61,22 @@
     }
   }
 
-  .file-wrapper:has(.added-file) {
+  .file-wrapper:has(.previews) {
     flex-direction: column;
     gap: 10px;
 
-    > * {
-      width: 200px;
+    .previews {
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      width: 100%;
+      max-height: 250px;
+    }
+    .preview {
+      max-height: 100%;
+      max-width: calc((100% - 20px) / 5);
+      object-fit: contain;
     }
   }
 
