@@ -1,20 +1,29 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { IoAddOutline } from "react-icons/io5";
 
-const Signup = ({ handleToken }) => {
-  const apiUrl = import.meta.env.VITE_API_URL;
+const SignupModal = ({ handleToken, setSignupVisible, setLoginVisible }) => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const localUrl = import.meta.env.VITE_LOCAL_URL;
 
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newsletter, setNewsletter] = useState(false);
   const [avatar, setAvatar] = useState(null);
+  const [previewPicture, setPreviewPicture] = useState();
 
   const handleChange = (event, setState) => {
     setState(event.target.value);
@@ -41,20 +50,37 @@ const Signup = ({ handleToken }) => {
       }
     } catch (error) {
       error.message && console.log(error.message);
-      error.response && console.log(error.response.data);
+      error.response && setErrorMessage(error.response.message);
     }
   };
 
   return (
-    <main className="signup">
-      <section className="container">
-        <h1>S'inscrire</h1>
-        <form
-          onSubmit={(event) => {
-            handleSubmit(event);
+    <div
+      className="modal-root signup"
+      onClick={() => {
+        setSignupVisible(false);
+      }}>
+      <section
+        className="modal container"
+        onClick={(event) => {
+          event.stopPropagation();
+        }}>
+        <button
+          className="close-btn"
+          onClick={() => {
+            setSignupVisible(false);
           }}>
+          X
+        </button>
+        <h1>S'inscrire</h1>
+        <form onSubmit={handleSubmit}>
           <section>
             <div className="file-wrapper">
+              {previewPicture && (
+                <div className="previews">
+                  <img src={previewPicture} alt="" className="preview" />
+                </div>
+              )}
               <label htmlFor="avatar" className="file">
                 <IoAddOutline /> Ajoute une photo
                 <input
@@ -62,6 +88,12 @@ const Signup = ({ handleToken }) => {
                   name="avatar"
                   id="avatar"
                   onChange={(event) => {
+                    // preview
+                    const objectUrl = URL.createObjectURL(
+                      event.target.files[0],
+                    );
+                    setPreviewPicture(objectUrl);
+
                     setAvatar(event.target.files[0]);
                   }}
                 />
@@ -142,11 +174,20 @@ const Signup = ({ handleToken }) => {
           </span>
 
           <button className="btn-filled">S'inscrire</button>
+          {errorMessage && <p className="error">{errorMessage}</p>}
         </form>
-        <Link to="/login">Tu as déjà un compte ? Connecte-toi !</Link>
+        <a
+          // todo ask
+
+          onClick={() => {
+            setSignupVisible(false);
+            setLoginVisible(true);
+          }}>
+          Tu as déjà un compte ? Connecte-toi !
+        </a>
       </section>
-    </main>
+    </div>
   );
 };
 
-export default Signup;
+export default SignupModal;

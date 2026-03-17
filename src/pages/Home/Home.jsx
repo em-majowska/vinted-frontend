@@ -4,9 +4,7 @@ import axios from "axios";
 import Hero from "../../components/Hero";
 import Offers from "../../components/Offers";
 
-const Home = ({ searchValue, ascSorting, values }) => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-
+const Home = ({ searchValue, ascSorting, values, setLoginVisible }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +40,7 @@ const Home = ({ searchValue, ascSorting, values }) => {
         <p>Loading...</p>
       ) : (
         <>
-          <Hero />
+          <Hero setLoginVisible={setLoginVisible} />
           <Offers data={data.offers} searchValue={searchValue} />
         </>
       )}

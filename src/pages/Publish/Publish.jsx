@@ -5,13 +5,12 @@ import InputText from "../../components/InputText";
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Navigate } from "react-router-dom";
 
 const Publish = () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const token = Cookies.get("userToken");
+
   const localUrl = import.meta.env.VITE_LOCAL_URL;
 
-  const token = Cookies.get("userToken");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
@@ -60,9 +59,7 @@ const Publish = () => {
     setState(event.target.value);
   };
 
-  return !token ? (
-    <Navigate to="/login" state={{ from: "/publish" }} />
-  ) : (
+  return (
     <main className="publish">
       <div className="container">
         <h1>Vends ton article</h1>
@@ -133,6 +130,7 @@ const Publish = () => {
                 value={description}
                 maxlength="500"
                 required={true}
+                type="textarea"
                 onChange={(event) => {
                   handleChange(event, setDescription);
                 }}

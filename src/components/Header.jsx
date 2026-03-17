@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import PriceRange from "./PriceRange";
+import Cookies from "js-cookie";
 
 const Header = ({
   isConnected,
@@ -12,7 +13,10 @@ const Header = ({
   setSearchValue,
   ascSorting,
   setAscSorting,
+  setSignupVisible,
+  setLoginVisible,
 }) => {
+  const token = Cookies.get("userToken");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -80,17 +84,30 @@ const Header = ({
             ) : (
               <>
                 <li>
-                  <Link to="/signup">S'inscrire</Link>
+                  <button onClick={() => setSignupVisible(true)}>
+                    S'inscrire
+                  </button>
                 </li>
                 <li>
-                  <Link to="/login">Se connecter</Link>
+                  <button onClick={() => setLoginVisible(true)}>
+                    Se connecter
+                  </button>
                 </li>
               </>
             )}
             <li>
-              <Link to="/publish" className="btn-filled">
+              <button
+                className="btn-filled"
+                onClick={() => {
+                  if (!token) {
+                    setLoginVisible(true);
+                  } else {
+                    navigate("/publish");
+                  }
+                }}>
+                {" "}
                 Vends tes articles
-              </Link>
+              </button>
             </li>
           </ul>
         </nav>

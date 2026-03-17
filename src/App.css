@@ -1,7 +1,6 @@
 /* ================================================================ */
 /* ============================ GLOBALS ============================== */
 /* ================================================================ */
-@import "./assets/css/input.css";
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 :root {
@@ -19,7 +18,6 @@ body {
 
 .container {
   width: min(100% - 2rem, 1240px);
-  /* width: 1240px; */
   margin: 0 auto;
 }
 
@@ -50,22 +48,158 @@ a {
 }
 
 /* ================================================================ */
-/* ============================ INPUTS ============================== */
+/* ============================ HEADER ============================== */
 /* ================================================================ */
 
-.login,
-.signup,
+header {
+  padding-block: 16px;
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+
+  a:has(img) {
+    padding: 0;
+    min-width: max-content;
+    align-self: start;
+  }
+  img {
+    width: 80px;
+  }
+
+  svg {
+    min-width: max-content;
+  }
+  form {
+    flex: 1;
+    align-self: stretch;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  form .search-bar {
+    display: flex;
+    background-color: var(--light-grey);
+    color: var(--dark-grey);
+    padding: 8px 10px;
+    gap: 8px;
+    border-radius: 5px;
+
+    input {
+      width: 100%;
+      border: none;
+      background-color: var(--light-grey);
+    }
+
+    input:focus-visible {
+      outline: none;
+    }
+  }
+
+  /* ================================================================ */
+  /* ============================ FILTERS ============================== */
+  /* ================================================================ */
+  .filters {
+    display: flex;
+    align-items: center;
+    margin-block-start: 30px;
+
+    gap: 20px;
+    font-size: 0.75rem;
+  }
+
+  label {
+    text-wrap: nowrap;
+
+    input[type="range"] {
+      margin-inline: 10px;
+      width: 70%;
+    }
+  }
+
+  .price-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+
+    span {
+      text-wrap: nowrap;
+    }
+
+    .price-tag {
+      display: block;
+      position: relative;
+      top: -25px;
+      left: calc(50% - 15px);
+      background-color: var(--blue);
+      color: white;
+      padding: 0.25em;
+      width: 30px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .price-tag::after {
+      position: absolute;
+      bottom: -6px;
+      left: calc(50% - 6px);
+      content: "";
+
+      width: 0;
+      height: 0;
+      border-right: 6px solid transparent;
+      border-left: 6px solid transparent;
+      border-top: 6px solid var(--blue);
+    }
+  }
+
+  /* ================================================================ */
+  /* ============================ NAVIGATION ============================== */
+  /* ================================================================ */
+  nav {
+    margin-inline: auto 0;
+    align-self: start;
+  }
+
+  ul {
+    display: flex;
+    align-items: start;
+    gap: 20px;
+    font-size: 0.875rem;
+
+    a,
+    button {
+      border: 1px solid var(--blue);
+      color: var(--blue);
+    }
+
+    li {
+      display: flex;
+    }
+
+    li:last-child {
+      margin-inline: auto 0;
+    }
+
+    .btn-logout {
+      background-color: var(--red);
+      color: white;
+    }
+  }
+}
+
+/* ================================================================ */
+/* ============================ FORMS ============================== */
+/* ================================================================ */
+
+.modal-root,
 .publish,
 .payment {
   padding-block-start: 50px;
-
-  .container {
-    border: 1px solid var(--light-grey);
-    border-radius: 5px;
-    padding: 0 16px;
-    /* margin-block-start: 50px; */
-    color: var(--dark-grey);
-  }
 
   input[type="checkbox"] {
     width: 0;
@@ -177,163 +311,97 @@ a {
   }
 }
 
-/* ================================================================ */
-/* ============================ HEADER ============================== */
-/* ================================================================ */
+.publish .file-wrapper:has(.previews) {
+  flex-direction: column;
+  gap: 10px;
 
-header {
-  padding-block: 16px;
-
-  .container {
+  .previews {
+    padding: 24px;
     display: flex;
-    align-items: center;
-    gap: 50px;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    max-height: 250px;
   }
 
-  a:has(img) {
-    padding: 0;
-    min-width: max-content;
-    align-self: start;
-  }
-  img {
-    width: 80px;
-  }
-
-  svg {
-    min-width: max-content;
-  }
-  form {
-    flex: 1;
-    align-self: stretch;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-  }
-
-  form .search-bar {
-    display: flex;
-    background-color: var(--light-grey);
-    color: var(--dark-grey);
-    padding: 8px 10px;
-    gap: 8px;
-    border-radius: 5px;
-
-    input {
-      width: 100%;
-      border: none;
-      background-color: var(--light-grey);
-    }
-
-    input:focus-visible {
-      outline: none;
-    }
-  }
-  .filters {
-    display: flex;
-    align-items: center;
-    margin-block-start: 30px;
-
-    gap: 20px;
-    font-size: 0.75rem;
-  }
-
-  label {
-    text-wrap: nowrap;
-
-    input[type="range"] {
-      margin-inline: 10px;
-      width: 70%;
-    }
-  }
-
-  .price-filter {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-
-    span {
-      text-wrap: nowrap;
-    }
-
-    .price-tag {
-      display: block;
-      position: relative;
-      top: -25px;
-      left: calc(50% - 15px);
-      background-color: var(--blue);
-      color: white;
-      padding: 0.25em;
-      width: 30px;
-      border-radius: 5px;
-      text-align: center;
-    }
-
-    .price-tag::after {
-      position: absolute;
-      bottom: -6px;
-      left: calc(50% - 6px);
-      content: "";
-
-      width: 0;
-      height: 0;
-      border-right: 6px solid transparent;
-      border-left: 6px solid transparent;
-      border-top: 6px solid var(--blue);
-    }
-  }
-
-  nav {
-    margin-inline: auto 0;
-    align-self: start;
-  }
-
-  ul {
-    display: flex;
-    align-items: start;
-    gap: 20px;
-    font-size: 0.875rem;
-
-    a {
-      border: 1px solid var(--blue);
-      color: var(--blue);
-    }
-    li {
-      display: flex;
-    }
-    li:last-child {
-      margin-inline: auto 0;
-    }
-
-    .btn-logout {
-      background-color: var(--red);
-      color: white;
-    }
+  .preview {
+    max-height: 100%;
+    max-width: calc((100% - 20px) / 5);
+    object-fit: contain;
   }
 }
 
 /* ================================================================ */
-/* ============================ FORMS ============================== */
+/* ============================ MODALS ============================== */
 /* ================================================================ */
+
+.App {
+  position: relative;
+}
+
+.modal-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  background-color: white;
+
+  max-width: 700px;
+  border: 1px solid var(--light-grey);
+  border-radius: 5px;
+  padding: 0 16px;
+  margin-block-start: 50px;
+  color: var(--dark-grey);
+}
 
 .signup,
 .login {
   .container {
-    max-width: 375px;
     border: 1px solid var(--light-grey);
     border-radius: 5px;
-    padding: 0 16px;
-    margin-block-start: 50px;
+    padding: 0 32px;
     color: var(--dark-grey);
   }
 
-  h1 {
+  .close-btn {
+    display: block;
+    margin-inline: auto -30px;
     font-size: 1.5rem;
-    text-align: center;
-    padding-block: 32px;
-    color: black;
   }
 
+  h1 {
+    margin-block-start: -20px;
+    font-size: 1.5rem;
+    text-align: center;
+    color: black;
+  }
+  .file-wrapper {
+    margin: 32px 0px;
+  }
+  .file-wrapper:has(.previews) {
+    justify-content: space-evenly;
+
+    .previews {
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      height: 100%;
+    }
+
+    .preview {
+      max-height: 100%;
+    }
+  }
   label:not(:last-of-type) {
     margin-block-end: 30px;
   }
@@ -356,6 +424,18 @@ header {
     text-align: center;
   }
 }
+
+.login .container {
+  max-width: 375px;
+
+  h1 {
+    margin-block-end: 34px;
+  }
+}
+
+/* ================================================================ */
+/* ============================ ERRORS ============================== */
+/* ================================================================ */
 
 .container:has(.error404) {
   display: flex;
@@ -388,6 +468,9 @@ div.error:has(p) {
   color: red;
 }
 
+/* ================================================================ */
+/* ============================ MEDIA QUERIES ============================== */
+/* ================================================================ */
 @media (max-width: 1024px) {
   nav ul {
     flex-direction: column;

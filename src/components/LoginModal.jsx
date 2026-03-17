@@ -1,8 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Login = ({ handleToken }) => {
+const LoginModal = ({ setLoginVisible, setSignupVisible, handleToken }) => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const localUrl = import.meta.env.VITE_LOCAL_URL;
 
   const navigate = useNavigate();
@@ -10,6 +18,7 @@ const Login = ({ handleToken }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
   const handleChange = (event, setState) => {
     setState(event.target.value);
@@ -24,20 +33,33 @@ const Login = ({ handleToken }) => {
       });
 
       handleToken(response.data.token);
-      if (location.state) {
-        navigate(location.state.from);
-      } else {
-        navigate("/");
-      }
+      setLoginVisible(false);
     } catch (error) {
       error.message && console.log(error.message);
-      error.response && console.log(error.response.data);
+      error.response && setErrorMessage(error.response.message);
     }
   };
 
   return (
-    <main className="login">
-      <section className="container">
+    <div
+      className="modal-root login"
+      onClick={() => {
+        setLoginVisible(false);
+      }}>
+      <section
+        className="modal container"
+        onClick={(event) => {
+          event.stopPropagation();
+        }}>
+        <button
+          className="close-btn"
+          onClick={() => {
+            // todo ask
+            setLoginVisible(false);
+            if (location.pathname === "/publish") navigate("/");
+          }}>
+          X
+        </button>
         <h1>Se connecter</h1>
         <form
           onSubmit={(event) => {
@@ -64,11 +86,18 @@ const Login = ({ handleToken }) => {
             />
           </label>
           <button className="btn-filled">Continuer</button>
+          {errorMessage && <p className="error">{errorMessage}</p>}
         </form>
-        <Link to="/signup">Pas encore de compte ? Inscris-toi !</Link>
+        <a
+          onClick={() => {
+            setLoginVisible(false);
+            setSignupVisible(true);
+          }}>
+          Pas encore de compte ? Inscris-toi !
+        </a>
       </section>
-    </main>
+    </div>
   );
 };
 
-export default Login;
+export default LoginModal;

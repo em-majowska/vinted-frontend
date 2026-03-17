@@ -6,9 +6,6 @@ import ItemDetails from "../../components/ItemDetails";
 import { MdError } from "react-icons/md";
 
 const Offer = () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const localUrl = import.meta.env.VITE_LOCAL_URL;
-
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -16,6 +13,7 @@ const Offer = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    const localUrl = import.meta.env.VITE_LOCAL_URL;
     const fetchData = async () => {
       try {
         const response = await axios.get(localUrl + "/offer/" + id);

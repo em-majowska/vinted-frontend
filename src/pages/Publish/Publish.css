@@ -61,25 +61,6 @@
     }
   }
 
-  .file-wrapper:has(.previews) {
-    flex-direction: column;
-    gap: 10px;
-
-    .previews {
-      padding: 24px;
-      display: flex;
-      justify-content: center;
-      gap: 5px;
-      width: 100%;
-      max-height: 250px;
-    }
-    .preview {
-      max-height: 100%;
-      max-width: calc((100% - 20px) / 5);
-      object-fit: contain;
-    }
-  }
-
   label {
     display: flex;
     border-block-end: 1px solid var(--light-grey);

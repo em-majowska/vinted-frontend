@@ -3,22 +3,30 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Offer from "./pages/Offer/Offer";
 import Header from "./components/Header";
-import Signup from "./pages/Signup/Signup";
-import Login from "./pages/Login/Login";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { MdError } from "react-icons/md";
 import Publish from "./pages/Publish/Publish";
 import Payment from "./pages/Payment/Payment";
+import SignupModal from "./components/SignupModal";
+import LoginModal from "./components/LoginModal";
 
 function App() {
+  // is User logged in
   const [isConnected, setIsConnected] = useState(
     Cookies.get("userToken") || false,
   );
+
+  // Filters
   const [values, setValues] = useState([0, 1000]);
   const [searchValue, setSearchValue] = useState("");
   const [ascSorting, setAscSorting] = useState(false);
 
+  // Modals visibility states
+  const [signupVisible, setSignupVisible] = useState(false);
+  const [loginVisible, setLoginVisible] = useState(false);
+
+  // helper function to set/remove token Cookie
   const handleToken = (token) => {
     if (!token) {
       console.log("no", token);
@@ -34,7 +42,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className="App">
       <Router>
         <Header
           isConnected={isConnected}
@@ -45,6 +53,9 @@ function App() {
           setSearchValue={setSearchValue}
           ascSorting={ascSorting}
           setAscSorting={setAscSorting}
+          signupVisible={signupVisible}
+          setSignupVisible={setSignupVisible}
+          setLoginVisible={setLoginVisible}
         />
         <Routes>
           <Route
@@ -54,29 +65,15 @@ function App() {
                 searchValue={searchValue}
                 values={values}
                 ascSorting={ascSorting}
+                setLoginVisible={setLoginVisible}
               />
             }
           />
           <Route path="/offer/:id" element={<Offer />} />
           <Route
-            path="/signup"
-            element={
-              <Signup
-                setIsConnected={setIsConnected}
-                handleToken={handleToken}
-              />
-            }
+            path="/publish"
+            element={<Publish setLoginVisible={setLoginVisible} />}
           />
-          <Route
-            path="/login"
-            element={
-              <Login
-                setIsConnected={setIsConnected}
-                handleToken={handleToken}
-              />
-            }
-          />
-          <Route path="/publish" element={<Publish />} />
           <Route path="/payment" element={<Payment />} />
           <Route
             path="*"
@@ -89,8 +86,22 @@ function App() {
             }
           />
         </Routes>
+        {signupVisible && (
+          <SignupModal
+            setSignupVisible={setSignupVisible}
+            setLoginVisible={setLoginVisible}
+            handleToken={handleToken}
+          />
+        )}
+        {loginVisible && (
+          <LoginModal
+            setLoginVisible={setLoginVisible}
+            setSignupVisible={setSignupVisible}
+            handleToken={handleToken}
+          />
+        )}
       </Router>
-    </>
+    </div>
   );
 }
 

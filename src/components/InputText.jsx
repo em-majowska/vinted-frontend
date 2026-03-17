@@ -3,7 +3,7 @@ const InputText = (props) => {
     <label htmlFor={props.title}>
       <span>{props.content}</span>
       <input
-        type="text"
+        type={props.type ? props.type : "text"}
         name={props.title}
         id={props.title}
         placeholder={props.placeholder}
