@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = ({ handleToken }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const localUrl = import.meta.env.VITE_LOCAL_URL;
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +17,8 @@ const Login = ({ handleToken }) => {
     setState(event.target.value);
   };
 
-  const loginUser = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       const response = await axios.post(localUrl + "/user/login", {
         email: email,
@@ -23,17 +26,15 @@ const Login = ({ handleToken }) => {
       });
 
       handleToken(response.data.token);
+      if (location.state) {
+        navigate(location.state.from);
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       error.message && console.log(error.message);
       error.response && console.log(error.response.data);
     }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    loginUser();
-    navigate("/publish");
   };
 
   return (

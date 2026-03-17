@@ -20,7 +20,9 @@ const Signup = ({ handleToken }) => {
     setState(event.target.value);
   };
 
-  const registerUser = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     const formData = new FormData();
     formData.append("username", username);
     formData.append("email", email);
@@ -32,17 +34,15 @@ const Signup = ({ handleToken }) => {
       const response = await axios.post(localUrl + "/user/signup", formData);
 
       handleToken(response.data.token);
-      navigate("/");
+      if (location.state) {
+        navigate(location.state.from);
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       error.message && console.log(error.message);
       error.response && console.log(error.response.data);
     }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    registerUser();
   };
 
   return (

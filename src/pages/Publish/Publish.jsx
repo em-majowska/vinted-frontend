@@ -61,7 +61,7 @@ const Publish = () => {
   };
 
   return !token ? (
-    <Navigate to="/login" />
+    <Navigate to="/login" state={{ from: "/publish" }} />
   ) : (
     <main className="publish">
       <div className="container">

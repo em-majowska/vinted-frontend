@@ -179,8 +179,6 @@ header {
     gap: 50px;
   }
 
-  /* height: 52px; real vinted */
-
   a:has(img) {
     padding: 0;
     min-width: max-content;
@@ -206,7 +204,6 @@ header {
     background-color: var(--light-grey);
     color: var(--dark-grey);
     padding: 8px 10px;
-    margin-block-end: 30px;
     gap: 8px;
     border-radius: 5px;
 
@@ -223,6 +220,8 @@ header {
   .filters {
     display: flex;
     align-items: center;
+    margin-block-start: 30px;
+
     gap: 20px;
     font-size: 0.75rem;
   }
