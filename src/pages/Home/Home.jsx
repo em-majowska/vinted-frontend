@@ -10,18 +10,29 @@ const Home = ({ searchValue, ascSorting, values, setLoginVisible }) => {
 
   useEffect(() => {
     const localUrl = import.meta.env.VITE_LOCAL_URL;
-    const params = {
+
+    // add filters to query url
+    const filters = {
       title: searchValue,
       sort: ascSorting ? "price-asc" : "price-desc",
       priceMin: values[0],
       priceMax: values[1],
     };
+    let sign = "?";
+    let str = "";
+
+    for (const pair of Object.entries(filters)) {
+      if (!str) {
+        if (pair[1]) str += `${sign}${pair[0]}=${pair[1]}`;
+      } else {
+        sign = "&";
+        if (pair[1]) str += `${sign}${pair[0]}=${pair[1]}`;
+      }
+    }
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(localUrl + `/offers`, {
-          params,
-        });
+        const response = await axios.get(localUrl + `/offers` + str);
 
         setData(response.data);
         setIsLoading(false);
