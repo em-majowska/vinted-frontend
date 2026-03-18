@@ -26,7 +26,7 @@ const LoginModal = ({
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (event, setState) => {
     setState(event.target.value);
@@ -46,8 +46,8 @@ const LoginModal = ({
         navigate(destination);
       }
     } catch (error) {
-      error.message && console.log(error.message);
-      error.response && setErrorMessage(error.response.message);
+      error.message && setErrorMessage(error.message);
+      error.response && setErrorMessage(error.response.data.message);
     }
   };
 
@@ -65,7 +65,6 @@ const LoginModal = ({
         <button
           className="close-btn"
           onClick={() => {
-            // todo ask
             setLoginVisible(false);
             if (location.pathname === "/publish") navigate("/");
           }}>
@@ -83,6 +82,7 @@ const LoginModal = ({
               id="email"
               placeholder="Email"
               value={email}
+              required
               onChange={(event) => handleChange(event, setEmail)}
             />
           </label>
@@ -93,11 +93,16 @@ const LoginModal = ({
               id="password"
               placeholder="Mot de passe"
               value={password}
+              required
               onChange={(event) => handleChange(event, setPassword)}
             />
           </label>
           <button className="btn-filled">Continuer</button>
-          {errorMessage && <p className="error">{errorMessage}</p>}
+          {errorMessage && (
+            <div className="error">
+              <p>{errorMessage}</p>
+            </div>
+          )}
         </form>
         <a
           onClick={() => {

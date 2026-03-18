@@ -24,14 +24,14 @@ const SignupModal = ({
   const localUrl = import.meta.env.VITE_LOCAL_URL;
 
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newsletter, setNewsletter] = useState(false);
   const [avatar, setAvatar] = useState(null);
-  const [previewPicture, setPreviewPicture] = useState();
+  const [previewPicture, setPreviewPicture] = useState("");
 
   const handleChange = (event, setState) => {
     setState(event.target.value);
@@ -51,12 +51,13 @@ const SignupModal = ({
       const response = await axios.post(localUrl + "/user/signup", formData);
 
       handleToken(response.data.token);
+      setSignupVisible(false);
       if (destination) {
         navigate(destination);
       }
     } catch (error) {
       error.message && console.log(error.message);
-      error.response && setErrorMessage(error.response.message);
+      error.response && setErrorMessage(error.response.data.message);
     }
   };
 
@@ -180,11 +181,13 @@ const SignupModal = ({
           </span>
 
           <button className="btn-filled">S'inscrire</button>
-          {errorMessage && <p className="error">{errorMessage}</p>}
+          {errorMessage && (
+            <div className="error">
+              <p>{errorMessage}</p>
+            </div>
+          )}
         </form>
         <a
-          // todo ask
-
           onClick={() => {
             setSignupVisible(false);
             setLoginVisible(true);
