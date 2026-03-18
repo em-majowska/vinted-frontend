@@ -3,20 +3,29 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Hero from "../../components/Hero";
 import Offers from "../../components/Offers";
+import { useSearchParams } from "react-router-dom";
 
 const Home = ({ searchValue, ascSorting, values, setLoginVisible }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [currentSearchParams] = useSearchParams();
+
   useEffect(() => {
     const localUrl = import.meta.env.VITE_LOCAL_URL;
 
+    // get queries from url
+    const searchQueryTitle = currentSearchParams.get("title");
+    const sort = currentSearchParams.get("sort");
+    const priceMin = currentSearchParams.get("priceMin");
+    const priceMax = currentSearchParams.get("priceMax");
+
     // add filters to query url
     const filters = {
-      title: searchValue,
-      sort: ascSorting ? "price-asc" : "price-desc",
-      priceMin: values[0],
-      priceMax: values[1],
+      title: searchQueryTitle ? searchQueryTitle : searchValue,
+      sort: sort || ascSorting ? "price-asc" : "price-desc",
+      priceMin: priceMin ? priceMin : values[0],
+      priceMax: priceMax ? priceMax : values[1],
     };
     let sign = "?";
     let str = "";
@@ -43,7 +52,7 @@ const Home = ({ searchValue, ascSorting, values, setLoginVisible }) => {
     };
 
     fetchData();
-  }, [searchValue, ascSorting, values]);
+  }, [searchValue, ascSorting, values, currentSearchParams]);
 
   return (
     <main className="home">

@@ -1,8 +1,5 @@
 .publish {
   background-color: var(--light-grey);
-  .container {
-    padding-block: 50px;
-  }
 
   h1 {
     font-size: 1.375rem;

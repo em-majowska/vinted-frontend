@@ -1,8 +1,14 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import PriceRange from "./PriceRange";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 const Header = ({
   isConnected,
@@ -19,6 +25,15 @@ const Header = ({
   const token = Cookies.get("userToken");
   const navigate = useNavigate();
   const location = useLocation();
+
+  // sync filters with url
+  const [currentSearchParams, setSearchParams] = useSearchParams();
+  const newQueryParameters = new URLSearchParams();
+
+  useEffect(() => {
+    const searchQueryTitle = currentSearchParams.get("title");
+    if (searchQueryTitle) setSearchValue(searchQueryTitle);
+  }, [currentSearchParams, setSearchValue]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,6 +60,24 @@ const Header = ({
               value={searchValue}
               onChange={(event) => {
                 setSearchValue(event.target.value);
+
+                if (event.target.value) {
+                  if (location.search.length > 0) {
+                    setSearchParams((prev) => {
+                      prev.set("title", event.target.value);
+                      return prev;
+                    });
+                  } else {
+                    newQueryParameters.set("title", event.target.value);
+                    setSearchParams(newQueryParameters);
+                  }
+                } else {
+                  newQueryParameters.delete("title");
+                  setSearchParams((prev) => {
+                    prev.delete("title");
+                    return prev;
+                  });
+                }
               }}
             />
           </div>
@@ -58,12 +91,22 @@ const Header = ({
                   id="sort"
                   onChange={() => {
                     setAscSorting(!ascSorting);
+
+                    setSearchParams((prev) => {
+                      prev.set("sort", !ascSorting);
+                      return prev;
+                    });
                   }}
                 />
               </label>
               <div className="price-filter">
                 <span> Prix entre :</span>
-                <PriceRange values={values} setValues={setValues} />
+                <PriceRange
+                  values={values}
+                  setValues={setValues}
+                  setSearchParams={setSearchParams}
+                  currentSearchParams={currentSearchParams}
+                />
               </div>
             </div>
           )}

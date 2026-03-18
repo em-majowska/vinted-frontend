@@ -199,7 +199,7 @@ header {
 .modal-root,
 .publish,
 .payment {
-  padding-block-start: 50px;
+  padding-block: 50px;
 
   input[type="checkbox"] {
     width: 0;
