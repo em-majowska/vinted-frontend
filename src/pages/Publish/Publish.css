@@ -50,6 +50,7 @@
   }
 
   section:first-of-type p.tip {
+    display: flex;
     padding: 12px;
     margin: 0px 24px 24px 24px;
     background-color: #c9f0ee;
@@ -92,4 +93,12 @@
   background-color: white;
   text-align: center;
   font-size: 1.5rem;
+
+  span {
+    display: block;
+    margin-block-start: 20px;
+    font-size: 1rem;
+    color: var(--grey);
+    font-weight: normal;
+  }
 }

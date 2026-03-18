@@ -2,13 +2,15 @@ import { FaCheck } from "react-icons/fa6";
 import "./Publish.css";
 import { IoAddOutline, IoShirtOutline } from "react-icons/io5";
 import InputText from "../../components/InputText";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
-const Publish = () => {
+const Publish = ({ setLoginVisible }) => {
   const token = Cookies.get("userToken");
-
+  const navigate = useNavigate();
+  const alertShown = useRef(false);
   const localUrl = import.meta.env.VITE_LOCAL_URL;
 
   const [title, setTitle] = useState("");
@@ -23,6 +25,23 @@ const Publish = () => {
   const [previewPicture, setPreviewPicture] = useState([]);
 
   const [isSuccess, setIsSuccess] = useState(null);
+
+  // fallback block and redirect user if not logged in
+  useEffect(() => {
+    if (!token && !alertShown.current) {
+      alert("Veillez vous connecter pour vendre vos articles !");
+      setLoginVisible(true);
+      navigate("/");
+      alertShown.current = true;
+    }
+
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        navigate("/");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [token, navigate, setLoginVisible, isSuccess]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -64,7 +83,12 @@ const Publish = () => {
       <div className="container">
         <h1>Vends ton article</h1>
         {isSuccess ? (
-          <p className="success">Ton article a été ajouté !</p>
+          <p className="success">
+            Ton article a été ajouté !
+            <span>
+              Tu seras redirigé vers la page d'accueil dans 5 secondes...
+            </span>
+          </p>
         ) : (
           <form onSubmit={handleSubmit}>
             <section>
