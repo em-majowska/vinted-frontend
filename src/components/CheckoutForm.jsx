@@ -3,11 +3,10 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { MdError } from "react-icons/md";
 import { ThreeDots } from "react-loader-spinner";
-import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ item, total, delivery, tax }) => {
   const localUrl = import.meta.env.VITE_LOCAL_URL;
@@ -18,16 +17,6 @@ const CheckoutForm = ({ item, total, delivery, tax }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isSuccess) {
-      const timer = setTimeout(() => {
-        navigate("/");
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [navigate, isSuccess]);
 
   const handleError = (error) => {
     setIsLoading(false);
@@ -76,9 +65,9 @@ const CheckoutForm = ({ item, total, delivery, tax }) => {
       <h2>Félicitations !</h2>
       <p>
         Vous avez acheté <span>{item.product_name}</span> pour{" "}
-        <span>{total} €</span> !<br />
-        Vous serez redirigé vers la page d'accueil dans 5 secondes...
+        <span>{total} €</span> !
       </p>
+      <Link to="/">Continuer vos achats</Link>
     </section>
   ) : (
     <form onSubmit={handleSubmit}>
