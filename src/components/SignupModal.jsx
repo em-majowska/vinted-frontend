@@ -7,9 +7,12 @@ import { IoAddOutline } from "react-icons/io5";
 const SignupModal = ({ handleToken, setSignupVisible, setLoginVisible }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    const currentPosition = window.pageYOffset;
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
     return () => {
       document.body.style.overflow = "unset";
+      window.scrollTo({ top: currentPosition, behavior: "smooth" });
     };
   }, []);
 

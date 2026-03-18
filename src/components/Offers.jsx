@@ -1,10 +1,15 @@
+import { Link } from "react-router-dom";
 import Item from "./Item";
 
 const Offers = ({ data }) => {
   return (
     <section className="offers container">
       {data.map((item) => {
-        return <Item key={item._id} item={item} />;
+        return (
+          <Link key={item._id} to={`/offer/${item._id}`} className="item">
+            <Item item={item} />
+          </Link>
+        );
       })}
     </section>
   );

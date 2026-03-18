@@ -65,7 +65,10 @@ function App() {
               />
             }
           />
-          <Route path="/offer/:id" element={<Offer />} />
+          <Route
+            path="/offer/:id"
+            element={<Offer setLoginVisible={setLoginVisible} />}
+          />
           <Route
             path="/publish"
             element={<Publish setLoginVisible={setLoginVisible} />}

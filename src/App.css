@@ -76,7 +76,7 @@ header {
     flex: 1;
     align-self: stretch;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
   }
 

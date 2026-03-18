@@ -1,7 +1,10 @@
 import { MdOutlineVerifiedUser } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-const ItemDetails = ({ item }) => {
+const ItemDetails = ({ item, setLoginVisible }) => {
+  const navigate = useNavigate();
+  const token = Cookies.get("userToken");
   const tax = Math.round((item.product_price * 0.12 * 100) / 100);
   const total = Math.round((item.product_price + tax + 1.95) * 100) / 100;
   const delivery = 1.95;
@@ -61,14 +64,26 @@ const ItemDetails = ({ item }) => {
         Envoi <span>à partir de 1,95€</span>
       </p>
       <div className="buttons">
-        <Link
+        {/* <Link
           to="/payment"
           className="btn-filled"
           state={{ item, tax, total, delivery }}>
           Acheter
-        </Link>
-        <button>Faire une offre</button>
-        <button>Message</button>
+        </Link> */}
+        <button
+          className="btn-filled"
+          state={{ item, tax, total, delivery }}
+          onClick={() => {
+            if (!token) {
+              setLoginVisible(true);
+            } else {
+              navigate("/payment");
+            }
+          }}>
+          Acheter
+        </button>
+        <button disabled>Faire une offre</button>
+        <button disabled>Message</button>
       </div>
     </aside>
   );

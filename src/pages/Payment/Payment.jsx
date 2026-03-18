@@ -19,7 +19,7 @@ const Payment = () => {
     appearance: {},
   };
   return !token ? (
-    <Navigate to="/login" />
+    <Navigate to="/" />
   ) : (
     <main className="payment">
       <div className="container">

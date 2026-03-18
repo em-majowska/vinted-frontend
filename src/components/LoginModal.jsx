@@ -5,9 +5,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 const LoginModal = ({ setLoginVisible, setSignupVisible, handleToken }) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    const currentPosition = window.pageYOffset;
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
     return () => {
       document.body.style.overflow = "unset";
+      window.scrollTo({ top: currentPosition, behavior: "smooth" });
     };
   }, []);
 

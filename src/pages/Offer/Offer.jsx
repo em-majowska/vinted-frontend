@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import ItemDetails from "../../components/ItemDetails";
 import { MdError } from "react-icons/md";
 
-const Offer = () => {
+const Offer = ({ setLoginVisible }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -58,7 +58,7 @@ const Offer = () => {
                   alt="photo du produit"
                 />
               )}
-              <ItemDetails item={item} />
+              <ItemDetails item={item} setLoginVisible={setLoginVisible} />
             </article>
           ) : (
             <div className="error404">
