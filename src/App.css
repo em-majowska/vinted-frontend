@@ -186,6 +186,7 @@ header {
     }
 
     .btn-logout {
+      border: none;
       background-color: var(--red);
       color: white;
     }

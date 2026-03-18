@@ -21,6 +21,7 @@ const Header = ({
   setAscSorting,
   setSignupVisible,
   setLoginVisible,
+  setDestination,
 }) => {
   const token = Cookies.get("userToken");
   const navigate = useNavigate();
@@ -144,6 +145,7 @@ const Header = ({
                 onClick={() => {
                   if (!token) {
                     setLoginVisible(true);
+                    setDestination("/publish");
                   } else {
                     navigate("/publish");
                   }

@@ -3,9 +3,11 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { MdError } from "react-icons/md";
+import { ThreeDots } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ item, total, delivery, tax }) => {
   const localUrl = import.meta.env.VITE_LOCAL_URL;
@@ -15,6 +17,17 @@ const CheckoutForm = ({ item, total, delivery, tax }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        navigate("/");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [navigate, isSuccess]);
 
   const handleError = (error) => {
     setIsLoading(false);
@@ -54,10 +67,20 @@ const CheckoutForm = ({ item, total, delivery, tax }) => {
       handleError(confirmPaymentResponse.error);
     } else {
       setIsLoading(false);
+      setIsSuccess(true);
     }
   };
 
-  return (
+  return isSuccess ? (
+    <section className="success">
+      <h2>Félicitations !</h2>
+      <p>
+        Vous avez acheté <span>{item.product_name}</span> pour{" "}
+        <span>{total} €</span> !<br />
+        Vous serez redirigé vers la page d'accueil dans 5 secondes...
+      </p>
+    </section>
+  ) : (
     <form onSubmit={handleSubmit}>
       <div className="details">
         <p>
@@ -108,7 +131,19 @@ const CheckoutForm = ({ item, total, delivery, tax }) => {
       <button
         className="btn-filled"
         disabled={!stripe || !elements || isLoading}>
-        Pay
+        {isLoading ? (
+          <ThreeDots
+            height="30px"
+            width="50px"
+            radius="9"
+            color="white"
+            ariaLabel="three-dots-loading"
+            wrapperClass="custom-loader"
+            visible={true}
+          />
+        ) : (
+          `Pay`
+        )}
       </button>
 
       {/* show error  */}

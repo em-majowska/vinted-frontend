@@ -2,7 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const LoginModal = ({ setLoginVisible, setSignupVisible, handleToken }) => {
+const LoginModal = ({
+  setLoginVisible,
+  setSignupVisible,
+  handleToken,
+  destination,
+}) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const currentPosition = window.pageYOffset;
@@ -37,6 +42,9 @@ const LoginModal = ({ setLoginVisible, setSignupVisible, handleToken }) => {
 
       handleToken(response.data.token);
       setLoginVisible(false);
+      if (destination) {
+        navigate(destination);
+      }
     } catch (error) {
       error.message && console.log(error.message);
       error.response && setErrorMessage(error.response.message);

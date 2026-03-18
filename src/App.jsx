@@ -16,6 +16,8 @@ function App() {
   const [isConnected, setIsConnected] = useState(
     Cookies.get("userToken") || false,
   );
+  // does User want to pass to another page but is blocked
+  const [destination, setDestination] = useState(null);
 
   // Filters
   const [values, setValues] = useState([0, 1000]);
@@ -52,6 +54,7 @@ function App() {
           signupVisible={signupVisible}
           setSignupVisible={setSignupVisible}
           setLoginVisible={setLoginVisible}
+          setDestination={setDestination}
         />
         <Routes>
           <Route
@@ -90,6 +93,7 @@ function App() {
             setSignupVisible={setSignupVisible}
             setLoginVisible={setLoginVisible}
             handleToken={handleToken}
+            destination={destination}
           />
         )}
         {loginVisible && (
@@ -97,6 +101,7 @@ function App() {
             setLoginVisible={setLoginVisible}
             setSignupVisible={setSignupVisible}
             handleToken={handleToken}
+            destination={destination}
           />
         )}
       </Router>

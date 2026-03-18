@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { IoAddOutline } from "react-icons/io5";
 
-const SignupModal = ({ handleToken, setSignupVisible, setLoginVisible }) => {
+const SignupModal = ({
+  handleToken,
+  setSignupVisible,
+  setLoginVisible,
+  destination,
+}) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const currentPosition = window.pageYOffset;
@@ -46,10 +51,8 @@ const SignupModal = ({ handleToken, setSignupVisible, setLoginVisible }) => {
       const response = await axios.post(localUrl + "/user/signup", formData);
 
       handleToken(response.data.token);
-      if (location.state) {
-        navigate(location.state.from);
-      } else {
-        navigate("/");
+      if (destination) {
+        navigate(destination);
       }
     } catch (error) {
       error.message && console.log(error.message);

@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 const ItemDetails = ({ item, setLoginVisible }) => {
   const navigate = useNavigate();
   const token = Cookies.get("userToken");
+
   const tax = Math.round((item.product_price * 0.12 * 100) / 100);
   const total = Math.round((item.product_price + tax + 1.95) * 100) / 100;
   const delivery = 1.95;
@@ -72,12 +73,22 @@ const ItemDetails = ({ item, setLoginVisible }) => {
         </Link> */}
         <button
           className="btn-filled"
-          state={{ item, tax, total, delivery }}
+          item={item}
+          tax={tax}
+          total={total}
+          delivery={delivery}
           onClick={() => {
             if (!token) {
               setLoginVisible(true);
             } else {
-              navigate("/payment");
+              navigate("/payment", {
+                state: {
+                  item: item,
+                  tax: tax,
+                  total: total,
+                  delivery: delivery,
+                },
+              });
             }
           }}>
           Acheter

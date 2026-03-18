@@ -84,9 +84,9 @@ const Publish = ({ setLoginVisible }) => {
         <h1>Vends ton article</h1>
         {isSuccess ? (
           <p className="success">
-            Ton article a été ajouté !
+            Votre article a été ajouté !
             <span>
-              Tu seras redirigé vers la page d'accueil dans 5 secondes...
+              Vous serez redirigé vers la page d'accueil dans 5 secondes...
             </span>
           </p>
         ) : (
