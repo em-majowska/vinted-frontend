@@ -5,7 +5,7 @@
 .hero {
   width: 100%;
   height: 450px;
-  background: center / cover url("src/assets/images/hero-image.jpg") no-repeat;
+  background: center / cover url("../../assets/images/hero-image.jpg") no-repeat;
   padding-block-start: 74px;
   margin-block-end: 50px;
 

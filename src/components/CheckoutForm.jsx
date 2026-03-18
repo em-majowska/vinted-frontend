@@ -7,6 +7,7 @@ import { useState } from "react";
 import { MdError } from "react-icons/md";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CheckoutForm = ({ item, total, delivery, tax }) => {
   const stripe = useStripe();
