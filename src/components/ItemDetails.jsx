@@ -2,7 +2,7 @@ import { MdOutlineVerifiedUser } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const ItemDetails = ({ item, setLoginVisible }) => {
+const ItemDetails = ({ item, setLoginVisible, setDestination }) => {
   const navigate = useNavigate();
   const token = Cookies.get("userToken");
 
@@ -107,7 +107,7 @@ const ItemDetails = ({ item, setLoginVisible }) => {
       </div>
       <p className="description">{item.product_description}</p>
       <p>
-        Envoi <span>à partir de 1,95€</span>
+        Envoi <span>à partir de 1,95 €</span>
       </p>
       <div className="buttons">
         <button
@@ -118,20 +118,27 @@ const ItemDetails = ({ item, setLoginVisible }) => {
           delivery={delivery}
           onClick={() => {
             if (!token) {
+              // setDestination("/payment");
               setLoginVisible(true);
             } else {
               navigate("/payment", {
                 state: {
-                  item: item,
-                  tax: tax,
-                  total: total,
-                  delivery: delivery,
+                  item,
+                  tax,
+                  total,
+                  delivery,
                 },
               });
             }
           }}>
           Acheter
         </button>
+        {/* <Link
+          to="/payment"
+          className="btn-filled"
+          state={{ item, tax, delivery, total }}>
+          Acheter
+        </Link> */}
         <button disabled>Faire une offre</button>
         <button disabled>Message</button>
       </div>

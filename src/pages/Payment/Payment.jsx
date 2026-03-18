@@ -1,10 +1,9 @@
 import "./Payment.css";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import CheckoutForm from "../../components/CheckoutForm";
 import { Navigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import { CheckoutProvider } from "@stripe/react-stripe-js/checkout";
+import CheckoutForm from "../../components/CheckoutForm";
 
 const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 const stripePromise = loadStripe(stripePublicKey);
@@ -20,7 +19,7 @@ const Payment = () => {
     appearance: {},
   };
   return !token ? (
-    <Navigate to="/" />
+    <Navigate to={"/offer/" + item._id} state={{ from: "/payment" }} />
   ) : (
     <main className="payment">
       <div className="container">

@@ -2,10 +2,10 @@ import "./Offer.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ItemDetails from "../../components/ItemDetails";
 import { MdError } from "react-icons/md";
+import ItemDetails from "../../components/ItemDetails";
 
-const Offer = ({ setLoginVisible }) => {
+const Offer = ({ setLoginVisible, setDestination }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -25,8 +25,6 @@ const Offer = ({ setLoginVisible }) => {
         error.response && setErrorMessage(error.response.data.message);
       }
     };
-
-    // timeout or response.data.message to show it doesnt exist
 
     fetchData();
   }, [id]);
@@ -58,7 +56,11 @@ const Offer = ({ setLoginVisible }) => {
                   alt="photo du produit"
                 />
               )}
-              <ItemDetails item={item} setLoginVisible={setLoginVisible} />
+              <ItemDetails
+                item={item}
+                setLoginVisible={setLoginVisible}
+                setDestination={setDestination}
+              />
             </article>
           ) : (
             <div className="error404">
