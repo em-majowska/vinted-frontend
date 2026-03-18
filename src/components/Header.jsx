@@ -107,6 +107,7 @@ const Header = ({
                   setValues={setValues}
                   setSearchParams={setSearchParams}
                   currentSearchParams={currentSearchParams}
+                  newQueryParameters={newQueryParameters}
                 />
               </div>
             </div>

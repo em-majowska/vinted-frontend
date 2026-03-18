@@ -32,15 +32,15 @@ const PriceRange = ({
       }}
       onFinalChange={() => {
         setValues(values);
-        if (location.search) {
+        if (location.search.length > 0) {
           setSearchParams((prev) => {
-            prev.set("priceMin", values[0]);
-            prev.set("priceMax", values[1]);
+            prev.set("priceMin", rangeValues[0]);
+            prev.set("priceMax", rangeValues[1]);
             return prev;
           });
         } else {
-          newQueryParameters.set("priceMin", values[0]);
-          newQueryParameters.set("priceMax", values[1]);
+          newQueryParameters.set("priceMin", rangeValues[0]);
+          newQueryParameters.set("priceMax", rangeValues[1]);
           setSearchParams(newQueryParameters);
         }
       }}
