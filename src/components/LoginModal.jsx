@@ -19,8 +19,6 @@ const LoginModal = ({
     };
   }, []);
 
-  const localUrl = import.meta.env.VITE_LOCAL_URL;
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -35,10 +33,13 @@ const LoginModal = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(localUrl + "/user/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        import.meta.env.VITE_BASE_URL + "/user/login",
+        {
+          email: email,
+          password: password,
+        },
+      );
 
       handleToken(response.data.token);
       setLoginVisible(false);

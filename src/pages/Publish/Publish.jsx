@@ -11,7 +11,6 @@ const Publish = ({ setLoginVisible }) => {
   const token = Cookies.get("userToken");
   const navigate = useNavigate();
   const alertShown = useRef(false);
-  const localUrl = import.meta.env.VITE_LOCAL_URL;
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -62,11 +61,15 @@ const Publish = ({ setLoginVisible }) => {
     }
 
     try {
-      const response = await axios.post(localUrl + "/offer/publish", formData, {
-        headers: {
-          Authorization: "Bearer " + token,
+      const response = await axios.post(
+        import.meta.env.VITE_BASE_URL + "/offer/publish",
+        formData,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         },
-      });
+      );
       setIsSuccess(response.data);
     } catch (error) {
       error.message && console.log(error.message);

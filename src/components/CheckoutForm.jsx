@@ -4,13 +4,11 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
-import axios from "axios";
 import { MdError } from "react-icons/md";
 import { ThreeDots } from "react-loader-spinner";
+import axios from "axios";
 
 const CheckoutForm = ({ item, total, delivery, tax }) => {
-  const localUrl = import.meta.env.VITE_LOCAL_URL;
-
   const stripe = useStripe();
   const elements = useElements();
 
@@ -36,27 +34,36 @@ const CheckoutForm = ({ item, total, delivery, tax }) => {
       handleError(elementResponse.error);
       return;
     }
-    const response = await axios.post(localUrl + "/payment", {
-      title: item.product_name,
-      amount: total * 100,
-    });
 
-    const clientSecret = response.data.client_secret;
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_BASE_URL + "/payment",
+        {
+          title: item.product_name,
+          amount: total * 100,
+        },
+      );
 
-    const confirmPaymentResponse = await stripe.confirmPayment({
-      elements,
-      clientSecret,
-      confirmParams: {
-        return_url: "http://localhost:5173/",
-      },
-      redirect: "if_required",
-    });
+      const clientSecret = response.data.client_secret;
 
-    if (confirmPaymentResponse.error) {
-      handleError(confirmPaymentResponse.error);
-    } else {
-      setIsLoading(false);
-      setIsSuccess(true);
+      const confirmPaymentResponse = await stripe.confirmPayment({
+        elements,
+        clientSecret,
+        confirmParams: {
+          return_url: "http://localhost:5173/",
+        },
+        redirect: "if_required",
+      });
+
+      if (confirmPaymentResponse.error) {
+        handleError(confirmPaymentResponse.error);
+      } else {
+        setIsLoading(false);
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      error.message && setErrorMessage(error.message);
+      error.response && setErrorMessage(error.response.data.message);
     }
   };
 

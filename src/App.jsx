@@ -1,11 +1,11 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { MdError } from "react-icons/md";
+import Cookies from "js-cookie";
 import Home from "./pages/Home/Home";
 import Offer from "./pages/Offer/Offer";
 import Header from "./components/Header";
-import { useState } from "react";
-import Cookies from "js-cookie";
-import { MdError } from "react-icons/md";
 import Publish from "./pages/Publish/Publish";
 import Payment from "./pages/Payment/Payment";
 import SignupModal from "./components/SignupModal";
@@ -70,12 +70,7 @@ function App() {
           />
           <Route
             path="/offer/:id"
-            element={
-              <Offer
-                setLoginVisible={setLoginVisible}
-                setDestination={setDestination}
-              />
-            }
+            element={<Offer setLoginVisible={setLoginVisible} />}
           />
           <Route
             path="/publish"

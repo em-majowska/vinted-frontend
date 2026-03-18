@@ -12,8 +12,6 @@ const Home = ({ searchValue, ascSorting, values, setLoginVisible }) => {
   const [currentSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const localUrl = import.meta.env.VITE_LOCAL_URL;
-
     // get queries from url
     const searchQueryTitle = currentSearchParams.get("title");
     const sort = currentSearchParams.get("sort");
@@ -41,7 +39,9 @@ const Home = ({ searchValue, ascSorting, values, setLoginVisible }) => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(localUrl + `/offers` + str);
+        const response = await axios.get(
+          import.meta.env.VITE_BASE_URL + `/offers` + str,
+        );
 
         setData(response.data);
         setIsLoading(false);

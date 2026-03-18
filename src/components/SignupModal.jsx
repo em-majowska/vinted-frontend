@@ -21,8 +21,6 @@ const SignupModal = ({
     };
   }, []);
 
-  const localUrl = import.meta.env.VITE_LOCAL_URL;
-
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -48,7 +46,10 @@ const SignupModal = ({
     formData.append("picture", avatar);
 
     try {
-      const response = await axios.post(localUrl + "/user/signup", formData);
+      const response = await axios.post(
+        import.meta.env.VITE_BASE_URL + "/user/signup",
+        formData,
+      );
 
       handleToken(response.data.token);
       setSignupVisible(false);

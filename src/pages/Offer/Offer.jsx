@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import ItemDetails from "../../components/ItemDetails";
 
-const Offer = ({ setLoginVisible, setDestination }) => {
+const Offer = ({ setLoginVisible }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -13,10 +13,11 @@ const Offer = ({ setLoginVisible, setDestination }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    const localUrl = import.meta.env.VITE_LOCAL_URL;
     const fetchData = async () => {
       try {
-        const response = await axios.get(localUrl + "/offer/" + id);
+        const response = await axios.get(
+          import.meta.env.VITE_BASE_URL + "/offer/" + id,
+        );
 
         setItem(response.data);
         setIsLoading(false);
@@ -56,11 +57,7 @@ const Offer = ({ setLoginVisible, setDestination }) => {
                   alt="photo du produit"
                 />
               )}
-              <ItemDetails
-                item={item}
-                setLoginVisible={setLoginVisible}
-                setDestination={setDestination}
-              />
+              <ItemDetails item={item} setLoginVisible={setLoginVisible} />
             </article>
           ) : (
             <div className="error404">
