@@ -40,7 +40,7 @@ const Home = ({ searchValue, ascSorting, values, setLoginVisible }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          import.meta.env.VITE_BASE_URL + `/offers` + str,
+          import.meta.env.BASE_URL + `/offers` + str,
         );
 
         setData(response.data);

@@ -47,7 +47,7 @@ const SignupModal = ({
 
     try {
       const response = await axios.post(
-        import.meta.env.VITE_BASE_URL + "/user/signup",
+        import.meta.env.BASE_URL + "/user/signup",
         formData,
       );
 

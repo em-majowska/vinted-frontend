@@ -36,13 +36,10 @@ const CheckoutForm = ({ item, total, delivery, tax }) => {
     }
 
     try {
-      const response = await axios.post(
-        import.meta.env.VITE_BASE_URL + "/payment",
-        {
-          title: item.product_name,
-          amount: total * 100,
-        },
-      );
+      const response = await axios.post(import.meta.env.BASE_URL + "/payment", {
+        title: item.product_name,
+        amount: total * 100,
+      });
 
       const clientSecret = response.data.client_secret;
 
