@@ -40,6 +40,9 @@ a {
   cursor: pointer;
   text-wrap: nowrap;
 }
+button[disabled] {
+  cursor: not-allowed;
+}
 
 .btn-filled {
   background: var(--blue);
@@ -457,7 +460,7 @@ header {
 div.error:has(p) {
   display: flex;
   gap: 10px;
-  padding-block-start: 0;
+  padding-block-start: 20px;
 
   svg {
     width: 60px;

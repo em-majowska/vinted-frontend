@@ -19,6 +19,49 @@ const ItemDetails = ({ item, setLoginVisible }) => {
     details[key] = obj[key];
   });
 
+  const timePassed = (date) => {
+    const now = new Date();
+    const created = new Date(date);
+
+    const seconds = Math.floor((now - created) / 1000);
+    let interval = Math.floor(seconds / 31536000);
+    if (interval >= 1) {
+      return interval === 1
+        ? "Ajouté il y a 1 an"
+        : `Ajouté il y a ${interval} ans`;
+    }
+
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) {
+      return interval === 1
+        ? "Ajouté il y a 1 mois"
+        : `Ajouté il y a ${interval} mois`;
+    }
+
+    interval = Math.floor(seconds / 86400);
+    if (interval >= 1) {
+      return interval === 1
+        ? "Ajouté il y a 1 jour"
+        : `Ajouté il y a ${interval} jours`;
+    }
+
+    interval = Math.floor(seconds / 3600);
+    if (interval >= 1) {
+      return interval === 1
+        ? "Ajouté il y a 1 heure"
+        : `Ajouté il y a ${interval} heures`;
+    }
+
+    interval = Math.floor(seconds / 60);
+    if (interval >= 1) {
+      return interval === 1
+        ? "Ajouté il y a 1 minute"
+        : `Ajouté il y a ${interval} minutes`;
+    }
+
+    return "Ajouté il y a quelques secondes";
+  };
+
   return (
     <aside>
       <div className="top">
@@ -26,8 +69,10 @@ const ItemDetails = ({ item, setLoginVisible }) => {
         <p>
           {details["TAILLE"] && <span>{details.TAILLE} &#8729; </span>}
           <span>{details["ÉTAT"]}</span> &#8729;{" "}
-          <span className="brand">{details.MARQUE}</span> &#8729;{" "}
-          <span>Ajouté il y a 2 heures</span>
+          <span className="brand">{details.MARQUE}</span>
+          {item.product_creationDate && (
+            <span> &#8729; {timePassed(item.product_creationDate)}</span>
+          )}
         </p>
       </div>
       <div className="middle">
@@ -65,12 +110,6 @@ const ItemDetails = ({ item, setLoginVisible }) => {
         Envoi <span>à partir de 1,95€</span>
       </p>
       <div className="buttons">
-        {/* <Link
-          to="/payment"
-          className="btn-filled"
-          state={{ item, tax, total, delivery }}>
-          Acheter
-        </Link> */}
         <button
           className="btn-filled"
           item={item}

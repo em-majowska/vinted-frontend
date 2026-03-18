@@ -22,7 +22,7 @@ const Offer = ({ setLoginVisible }) => {
         setIsLoading(false);
       } catch (error) {
         error.message && console.log(error.message);
-        error.response && setErrorMessage(error.response.message);
+        error.response && setErrorMessage(error.response.data.message);
       }
     };
 
