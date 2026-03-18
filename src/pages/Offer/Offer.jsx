@@ -16,7 +16,7 @@ const Offer = ({ setLoginVisible }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          import.meta.env.BASE_URL + "/offer/" + id,
+          import.meta.env.VITE_BASE_URL + "/offer/" + id,
         );
 
         setItem(response.data);

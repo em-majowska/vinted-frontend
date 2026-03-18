@@ -34,7 +34,7 @@ const LoginModal = ({
     event.preventDefault();
     try {
       const response = await axios.post(
-        import.meta.env.BASE_URL + "/user/login",
+        import.meta.env.VITE_BASE_URL + "/user/login",
         {
           email: email,
           password: password,

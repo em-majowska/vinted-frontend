@@ -62,7 +62,7 @@ const Publish = ({ setLoginVisible }) => {
 
     try {
       const response = await axios.post(
-        import.meta.env.BASE_URL + "/offer/publish",
+        import.meta.env.VITE_BASE_URL + "/offer/publish",
         formData,
         {
           headers: {
