@@ -99,3 +99,7 @@
     font-weight: normal;
   }
 }
+.publish .error {
+  align-self: end;
+  margin-block-end: 20px;
+}

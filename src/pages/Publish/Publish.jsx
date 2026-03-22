@@ -22,6 +22,7 @@ const Publish = ({ setLoginVisible }) => {
   const [price, setPrice] = useState("");
   const [picture, setPicture] = useState(null);
   const [previewPicture, setPreviewPicture] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const [isSuccess, setIsSuccess] = useState(null);
 
@@ -56,8 +57,13 @@ const Publish = ({ setLoginVisible }) => {
     formData.append("city", city);
     formData.append("price", price);
 
-    for (let i = 0; i < picture.length; i++) {
-      formData.append("picture", picture[i]);
+    if (picture) {
+      for (let i = 0; i < picture.length; i++) {
+        formData.append("picture", picture[i]);
+      }
+    } else {
+      setErrorMessage("Ajoute au moins une photo");
+      return;
     }
 
     try {
@@ -70,10 +76,11 @@ const Publish = ({ setLoginVisible }) => {
           },
         },
       );
+
       setIsSuccess(response.data);
     } catch (error) {
-      error.message && console.log(error.message);
-      error.response && console.log(error.response.data);
+      error.message && setErrorMessage(error.message);
+      error.response && setErrorMessage(error.response.data.message);
     }
   };
 
@@ -242,7 +249,7 @@ const Publish = ({ setLoginVisible }) => {
                 </p>
               </label>
             </section>
-
+            {errorMessage && <p className="error">{errorMessage}</p>}
             <button className="btn-filled">Ajouter</button>
           </form>
         )}
